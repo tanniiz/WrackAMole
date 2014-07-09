@@ -9,16 +9,10 @@
         android:id="@+id/et_reg_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="User Name" >
+        android:ems="10"
+        android:hint="Username" >
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/bt_reg_create"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:text="Create Account" />
 
 </LinearLayout>

@@ -250,7 +250,6 @@ int id beginning 0x7f050011
 int id bt_login 0x7f05003d
 int id bt_logout 0x7f050041
 int id bt_reg 0x7f05003e
-int id bt_reg_create 0x7f050044
 int id bt_score 0x7f050040
 int id bt_start 0x7f05003f
 int id checkbox 0x7f05002d

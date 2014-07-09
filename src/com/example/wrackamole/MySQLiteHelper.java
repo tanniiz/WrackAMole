@@ -42,12 +42,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 	public long register(String username) {
 		db = this.getWritableDatabase();
 		
-		// create ContentValues to add column and its value
-		ContentValues values = new ContentValues();
-		values.put(KEY_USERNAME, username);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE username=?", new String[]{username});
+		if(cursor.getCount() == 0) {
+			// create ContentValues to add column and its value
+			ContentValues values = new ContentValues();
+			values.put(KEY_USERNAME, username);
+			
+			// execute insertion
+			return db.insert(TABLE_NAME, null, values);
+		} else {
+			return -1;
+		}
 		
-		// execute insertion
-		return db.insert(TABLE_NAME, null, values);
 	}
 	
 	public boolean login(String username) {

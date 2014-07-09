@@ -1088,7 +1088,6 @@ containing a value of this type.
         public static final int bt_login=0x7f05003d;
         public static final int bt_logout=0x7f050041;
         public static final int bt_reg=0x7f05003e;
-        public static final int bt_reg_create=0x7f050044;
         public static final int bt_score=0x7f050040;
         public static final int bt_start=0x7f05003f;
         public static final int checkbox=0x7f05002d;
