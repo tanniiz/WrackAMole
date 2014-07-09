@@ -90,17 +90,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		List<User> userScore = new ArrayList<User>();
 
-		ContentValues values = new ContentValues();
-		values.put(KEY_USERID, 1);
-		values.put(KEY_SCORE, 100);
-		db.insert("SCORE", null, values);
-
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
 				+ " WHERE username=?", new String[] { username });
 
 		if (cursor.moveToFirst()) {
 			int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
-			Cursor c = db.rawQuery("SELECT * FROM SCORE WHERE userid=" + id,
+			Cursor c = db.rawQuery("SELECT * FROM SCORE WHERE userid=" + id + " ORDER BY score DESC",
 					null);
 			if (c.moveToFirst()) {
 				do {
@@ -114,5 +109,26 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		}
 
 		return userScore;
+	}
+	
+	public User getLatestScore(String username) {
+		db = this.getWritableDatabase();
+		User user = new User();
+		
+		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
+				+ " WHERE username=?", new String[] { username });
+		if (cursor.moveToFirst()) {
+			int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
+			Cursor c = db.rawQuery("SELECT * FROM SCORE WHERE userid=" + id,
+					null);
+			if (c.moveToLast()) {
+					user.setID(id);
+					user.setUsername(username);
+					user.setScore(c.getInt(c.getColumnIndex(KEY_SCORE)));
+			}
+		}
+		
+
+		return user;
 	}
 }

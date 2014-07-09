@@ -23,6 +23,12 @@ public class MainMenu extends Activity {
 	    final String username = i.getStringExtra("username");
 	    txtHi.setText("Welcome, " + username);
 	    
+	    btStart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+	    
 	    btScore.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	Intent score = new Intent(
@@ -32,6 +38,7 @@ public class MainMenu extends Activity {
 				startActivity(score);
             }
         });
+	    
 	    // Adding action to logout button
 	    btLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

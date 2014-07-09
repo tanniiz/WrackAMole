@@ -54,23 +54,33 @@
         android:text="NULL"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Button
+        android:id="@+id/bt_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="90dp"
+        android:text="Main Menu" />
+
     <TextView
         android:id="@+id/tv_score1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_sc"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="120dp"
         android:text="NULL"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/bt_menu"
+    <TextView
+        android:id="@+id/tv_latest_sc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_score5"
+        android:layout_below="@+id/tv_sc"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
-        android:text="Main Menu" />
+        android:layout_marginTop="39dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

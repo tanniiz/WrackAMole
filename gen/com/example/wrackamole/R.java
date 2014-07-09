@@ -1136,12 +1136,13 @@ containing a value of this type.
         public static final int tabMode=0x7f050002;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
+        public static final int tv_latest_sc=0x7f05004b;
         public static final int tv_sc=0x7f050044;
         public static final int tv_score1=0x7f050049;
-        public static final int tv_score2=0x7f050046;
-        public static final int tv_score3=0x7f050045;
-        public static final int tv_score4=0x7f050048;
-        public static final int tv_score5=0x7f050047;
+        public static final int tv_score2=0x7f050048;
+        public static final int tv_score3=0x7f050047;
+        public static final int tv_score4=0x7f050046;
+        public static final int tv_score5=0x7f050045;
         public static final int txtHi=0x7f050042;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
