@@ -36,7 +36,7 @@ public class Score extends Activity{
 		// Getting list of Score
 		List<User> sc = db.getScore(username);
 		for(int j = 0 ; j < sc.size() && j < 5 ; j++) {
-			tvScore[j].setText(sc.get(j).getUsername() + " " + sc.get(j).getScore());
+			tvScore[j].setText("" + sc.get(j).getScore());
 		}
 		
 		// Back to main menu
