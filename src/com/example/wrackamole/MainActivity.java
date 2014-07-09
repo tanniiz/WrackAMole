@@ -1,11 +1,11 @@
 package com.example.wrackamole;
 
 import android.app.Activity;
-import android.view.View.OnClickListener;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
