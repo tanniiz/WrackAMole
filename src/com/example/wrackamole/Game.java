@@ -3,22 +3,8 @@ package com.example.wrackamole;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.widget.TextView;
-
-public class Game extends Activity {
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.game);
-		TextView greeting = (TextView)findViewById(R.id.tv_greeting);
-		
-		Intent i = getIntent();
-		final String username = i.getStringExtra("username");
-	    greeting.setText("Welcome, " + username);
-=======
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -28,6 +14,11 @@ public class Game extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
 		
+		TextView greeting = (TextView)findViewById(R.id.tv_greeting);
+		
+		Intent i = getIntent();
+		final String username = i.getStringExtra("username");
+	    greeting.setText("Welcome, " + username);
 		// Components
 		final Button btSignOut = (Button) findViewById(R.id.bt_signOut);
 		final Button btPausePlay = (Button) findViewById(R.id.bt_pausePlay);
@@ -57,6 +48,5 @@ public class Game extends Activity {
 	public boolean shuffleBoard(){
 		
 		return true;
->>>>>>> FETCH_HEAD
 	}
 }
