@@ -167,4 +167,12 @@
         android:text="1  2  3  4  5  6  7  8  9"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/tv_greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/timeRemaining"
+        android:layout_alignParentLeft="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

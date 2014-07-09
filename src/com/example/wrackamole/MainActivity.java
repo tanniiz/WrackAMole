@@ -1,20 +1,14 @@
 package com.example.wrackamole;
 
 import android.app.Activity;
-<<<<<<< HEAD
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-=======
->>>>>>> FETCH_HEAD
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +17,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private MySQLiteHelper db;
 	private Button btLogin, btReg;
-	private Context context = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +38,7 @@ public class MainActivity extends Activity {
 				if (username.length() > 0) {
 					try {
 						if (db.login(username)) {
-							Intent MAIN_MENU = new Intent(
-									getApplicationContext(), MainMenu.class);
+							Intent MAIN_MENU = new Intent(getApplicationContext(), MainMenu.class);
 							MAIN_MENU.putExtra("username", username);
 
 							startActivity(MAIN_MENU);
@@ -58,7 +50,7 @@ public class MainActivity extends Activity {
 						}
 					} catch (Exception e) {
 						Toast.makeText(MainActivity.this,
-								"Some problem occurred", Toast.LENGTH_LONG)
+								e.getMessage(), Toast.LENGTH_LONG)
 								.show();
 					}
 				} else {

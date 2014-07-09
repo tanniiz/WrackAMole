@@ -249,16 +249,10 @@ int id activity_chooser_view_content 0x7f050025
 int id always 0x7f05000b
 int id beginning 0x7f050011
 int id bt_login 0x7f05003d
-int id bt_logout 0x7f050054
+int id bt_logout 0x7f050055
 int id bt_reg 0x7f05003e
-<<<<<<< HEAD
-int id bt_score 0x7f050040
-int id bt_start 0x7f05003f
-=======
-int id bt_reg_create 0x7f050057
-int id bt_score 0x7f050053
-int id bt_start 0x7f050052
->>>>>>> FETCH_HEAD
+int id bt_score 0x7f050054
+int id bt_start 0x7f050053
 int id checkbox 0x7f05002d
 int id collapseActionView 0x7f05000d
 int id default_activity_button 0x7f050028
@@ -268,7 +262,7 @@ int id disableHome 0x7f050008
 int id dropdown 0x7f05000f
 int id edit_query 0x7f050030
 int id end 0x7f050013
-int id et_reg_username 0x7f050056
+int id et_reg_username 0x7f050057
 int id et_username 0x7f05003c
 int id expand_activities_button 0x7f050026
 int id expanded_menu 0x7f05002c
@@ -322,7 +316,8 @@ int id textView3 0x7f050051
 int id timeRemaining 0x7f050041
 int id title 0x7f05002b
 int id top_action_bar 0x7f050020
-int id txtHi 0x7f050055
+int id tv_greeting 0x7f050052
+int id txtHi 0x7f050056
 int id up 0x7f050021
 int id useLogo 0x7f050003
 int id withText 0x7f05000c
