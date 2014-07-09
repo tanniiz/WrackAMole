@@ -21,13 +21,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Game extends Activity {
 	String sequence;
+	int time = 40;
+	Timer timer = new Timer();
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
-		
+		timer.schedule(new TimerTask(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				time--;
+			}
+			
+		}, 2*60*1000);
 		// Components
 		final Button btSignOut = (Button) findViewById(R.id.bt_signOut);
 		final Button btPausePlay = (Button) findViewById(R.id.bt_pausePlay);
