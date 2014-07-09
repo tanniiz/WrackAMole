@@ -2,10 +2,8 @@ package com.example.wrackamole;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private MySQLiteHelper db;
 	private Button btLogin, btReg;
-	private Context context = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

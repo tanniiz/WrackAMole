@@ -1087,6 +1087,7 @@ containing a value of this type.
         public static final int beginning=0x7f050011;
         public static final int bt_login=0x7f05003d;
         public static final int bt_logout=0x7f050041;
+        public static final int bt_menu=0x7f05004a;
         public static final int bt_reg=0x7f05003e;
         public static final int bt_score=0x7f050040;
         public static final int bt_start=0x7f05003f;
@@ -1135,6 +1136,12 @@ containing a value of this type.
         public static final int tabMode=0x7f050002;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
+        public static final int tv_sc=0x7f050044;
+        public static final int tv_score1=0x7f050049;
+        public static final int tv_score2=0x7f050046;
+        public static final int tv_score3=0x7f050045;
+        public static final int tv_score4=0x7f050048;
+        public static final int tv_score5=0x7f050047;
         public static final int txtHi=0x7f050042;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
@@ -1194,6 +1201,7 @@ containing a value of this type.
         public static final int main_menu=0x7f030019;
         public static final int register=0x7f03001a;
         public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int user_score=0x7f03001c;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2616,7 +2624,7 @@ containing a value of this type.
          */
         public static final int[] MenuView = {
             0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e,
-            0x0101012f, 0x01010130, 0x01010131, 0x0101040c
+            0x0101012f, 0x01010130, 0x01010131, 0x01010438
         };
         /**
           <p>

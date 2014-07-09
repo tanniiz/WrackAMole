@@ -20,12 +20,21 @@ public class MainMenu extends Activity {
 		
 		Intent i = getIntent();
 	    // Receiving the data
-	    String username = i.getStringExtra("username");
+	    final String username = i.getStringExtra("username");
 	    txtHi.setText("Welcome, " + username);
 	    
+	    btScore.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	Intent score = new Intent(
+						MainMenu.this, Score.class);
+				score.putExtra("username", username);
+
+				startActivity(score);
+            }
+        });
 	    // Adding action to logout button
 	    btLogout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
+            public void onClick(View v) {
                 //Closing main menu and return to login
                 finish();
             }
