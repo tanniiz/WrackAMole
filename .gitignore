@@ -6,3 +6,4 @@ gen/android/support/v7/appcompat/R.java
 project.properties
 gen/com/example/wrackamole/BuildConfig.java
 .settings/org.eclipse.jdt.core.prefs
+lint.xml
