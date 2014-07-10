@@ -46,7 +46,10 @@ public class MainMenu extends Activity {
 	    // Adding action to logout button
 	    btLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	Intent login = new Intent(
+						MainMenu.this, MainActivity.class);
                 //Closing main menu and return to login
+            	startActivity(login);
                 finish();
             }
         });
