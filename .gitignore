@@ -38,3 +38,5 @@ gen/com/example/wrackamole/R.java
 *.txt
 
 *.class
+
+*.class
