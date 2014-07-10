@@ -24,7 +24,7 @@ public class SelectMode extends Activity {
             	Intent GAMEPLAY = new Intent(
 						SelectMode.this, Game.class);
 				GAMEPLAY.putExtra("username", username);
-				//GAMEPLAY.putExtra("level", 0);
+				GAMEPLAY.putExtra("level", 0);
 
 				startActivity(GAMEPLAY);
             }
@@ -35,7 +35,7 @@ public class SelectMode extends Activity {
             	Intent GAMEPLAY = new Intent(
 						SelectMode.this, Game.class);
 				GAMEPLAY.putExtra("username", username);
-				//GAMEPLAY.putExtra("level", 1);
+				GAMEPLAY.putExtra("level", 1);
 
 				startActivity(GAMEPLAY);
             }
