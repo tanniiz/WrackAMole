@@ -4,6 +4,7 @@ public class User {
 	private int userid;
 	private String username;
 	private int userScore;
+	private int level;
 	
 	public User() {
 		this.userScore = 0;
@@ -37,6 +38,14 @@ public class User {
 
 	public void setScore(int userScore) {
 		this.userScore = userScore;
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
 	

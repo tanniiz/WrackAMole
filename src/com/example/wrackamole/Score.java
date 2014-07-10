@@ -30,13 +30,21 @@ public class Score extends Activity{
 	    String username = i.getStringExtra("username");
 	    tvBar.setText(username + "'s Score:");
 	    
-	    int latestScore = db.getLatestScore(username).getScore();
-	    tvLatestScore.setText("Your latest score: " + latestScore);
+	    //int latestScore = ;
+	    tvLatestScore.setText("Your latest score: " + db.getLatestScore(username).getScore() + " level: " + db.getLatestScore(username).getLevel());
+
 	    
 		// Getting list of Score
+	    
 		List<User> sc = db.getScore(username);
-		for(int j = 0 ; j < sc.size() && j < 5 ; j++) {
-			tvScore[j].setText("" + sc.get(j).getScore());
+		if(!sc.isEmpty()) {
+			for(int j = 0 ; j < sc.size() && j < 5 ; j++) {
+				tvScore[j].setText("Score: " + sc.get(j).getScore() + " Level: " + sc.get(j).getLevel());
+			}
+		} else {
+			for(int j = 0 ; j < 5 ; j++) {
+				tvScore[j].setText("n/a");
+			}
 		}
 		
 		// Back to main menu

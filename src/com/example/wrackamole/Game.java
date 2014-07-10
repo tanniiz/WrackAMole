@@ -19,6 +19,8 @@ import java.util.Collections;
 
 public class Game extends Activity {
 
+	MySQLiteHelper db;
+
 	// Components
 	CountDownTimer cdt;
 	String username;
@@ -53,6 +55,7 @@ public class Game extends Activity {
 			add(9);
 		}
 	};
+	int level = 0;
 	int pos = 0;
 	int time = 5;
 	int score = 0;
@@ -60,8 +63,18 @@ public class Game extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
+
+		// Greeting on top
+		Intent i = getIntent();
+		username = i.getStringExtra("username");
+		level = i.getIntExtra("level", -1);
+		
+		intro();
+		
+		this.db = new MySQLiteHelper(this);
 		// Refer xml components
 		greeting = (TextView) findViewById(R.id.tv_name);
+		greeting.setText("Welcome, " + username);
 		tvTime = (TextView) findViewById(R.id.tv_time);
 		tvScore = (TextView) findViewById(R.id.tv_score);
 		tvSequence = (TextView) findViewById(R.id.tv_sequence);
@@ -78,10 +91,6 @@ public class Game extends Activity {
 		ibt9 = (ImageButton) findViewById(R.id.ibt9);
 
 		shuffleSequence();
-		// Greeting on top
-		Intent i = getIntent();
-		username = i.getStringExtra("username");
-		greeting.setText("Welcome, " + username);
 
 		// setTime tv
 		tvTime.setText("Time Remaining : " + time);
@@ -172,6 +181,15 @@ public class Game extends Activity {
 
 	// End
 	public void end() {
+		long i = db.ressultRec(username, score, level);
+		if (i != -1) {
+			Toast.makeText(Game.this, "Your score has been recorded",
+					Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(Game.this,
+					"Problem occured while trying to record your score",
+					Toast.LENGTH_LONG).show();
+		}
 		// Dialog properties
 		LayoutInflater li = LayoutInflater.from(this);
 		View prompt = li.inflate(R.layout.result, null);
@@ -201,6 +219,31 @@ public class Game extends Activity {
 				});
 
 		alertDialogBuilder.show();
+	}
+
+	public void intro() {
+		// Dialog properties
+		LayoutInflater li = LayoutInflater.from(this);
+		View prompt = li.inflate(R.layout.instruction, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setView(prompt);
+		final TextView tvUsername = (TextView) prompt
+				.findViewById(R.id.tv_instruction);
+		tvUsername.setText("Hi, " + username
+				+ "\n This is an instruction .....");
+		alertDialogBuilder.setTitle("Instruction");
+
+		// Dismiss dialog when click cancel
+		alertDialogBuilder.setNegativeButton("OKAY",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+
+		alertDialogBuilder.show();
+
 	}
 
 }
