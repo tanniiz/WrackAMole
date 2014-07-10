@@ -40,3 +40,5 @@ gen/com/example/wrackamole/R.java
 *.class
 
 *.class
+
+bin/classes/com/example/wrackamole/MainMenu.class
