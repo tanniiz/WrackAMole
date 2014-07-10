@@ -1,10 +1,12 @@
-package com.example.wrackamole;
+ package com.example.wrackamole;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
@@ -86,7 +88,7 @@ public class Game extends Activity {
 	}
 
 	public boolean onClickCheck() {
-		
+		  Toast.makeText(this, "Clicked on Button", Toast.LENGTH_LONG).show();
 		return true;
 	}
 

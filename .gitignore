@@ -7,3 +7,9 @@ project.properties
 gen/com/example/wrackamole/BuildConfig.java
 .settings/org.eclipse.jdt.core.prefs
 lint.xml
+*.jar
+*.class
+*.class
+bin/resources.ap_
+bin/WrackAMole.apk
+bin/classes.dex
