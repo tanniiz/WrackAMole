@@ -40,67 +40,6 @@
         android:text="Time :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/bt_bt2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/bt_bt1"
-        android:layout_centerHorizontal="true"
-        android:text="2" />
-
-    <Button
-        android:id="@+id/bt_bt4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bt_bt1"
-        android:layout_below="@+id/bt_bt1"
-        android:layout_marginTop="89dp"
-        android:text="4" />
-
-    <Button
-        android:id="@+id/bt_bt5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_bt4"
-        android:layout_alignBottom="@+id/bt_bt4"
-        android:layout_alignLeft="@+id/bt_bt2"
-        android:text="5" />
-
-    <Button
-        android:id="@+id/bt_bt6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_bt5"
-        android:layout_alignBottom="@+id/bt_bt5"
-        android:layout_alignLeft="@+id/bt_bt3"
-        android:text="6" />
-
-    <Button
-        android:id="@+id/bt_bt7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bt_bt4"
-        android:layout_below="@+id/bt_bt4"
-        android:layout_marginTop="91dp"
-        android:text="7" />
-
-    <Button
-        android:id="@+id/bt_bt8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_bt7"
-        android:layout_alignBottom="@+id/bt_bt7"
-        android:layout_alignLeft="@+id/bt_bt5"
-        android:text="8" />
-
-    <Button
-        android:id="@+id/bt_bt9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bt_bt8"
-        android:layout_alignLeft="@+id/bt_bt6"
-        android:text="9" />
-
     <TextView
         android:id="@+id/tv_sequenceText"
         android:layout_width="wrap_content"
@@ -110,15 +49,6 @@
         android:text="Sequence"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/bt_bt3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_bt2"
-        android:layout_alignBottom="@+id/bt_bt2"
-        android:layout_toLeftOf="@+id/bt_signOut"
-        android:text="3" />
-
     <TextView
         android:id="@+id/tv_sequence"
         android:layout_width="wrap_content"
@@ -127,28 +57,9 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tv_sequenceText"
         android:layout_marginTop="18dp"
-        android:text="1  2  3  4  5  6  7  8  9"
         android:gravity="center"
+        android:text="1  2  3  4  5  6  7  8  9"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tv_legends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/bt_bt8"
-        android:layout_below="@+id/tv_digitSymKey"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tv_digitSymKey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_time"
-        android:layout_below="@+id/bt_bt7"
-        android:layout_marginTop="100dp"
-        android:text="Digit-Symbol key :"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/tv_score"
@@ -159,13 +70,109 @@
         android:text="Score :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/bt_bt1"
+    <TextView
+        android:id="@+id/tv_legends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="107dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tv_digitSymKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_legends"
+        android:layout_alignLeft="@+id/tv_score"
+        android:layout_marginLeft="13dp"
+        android:text="Digit-Symbol key :"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/ibt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ibt1"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack2" />
+
+    <ImageButton
+        android:id="@+id/ibt8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_digitSymKey"
+        android:layout_alignLeft="@+id/ibt2"
+        android:layout_marginBottom="107dp"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack8" />
+
+    <ImageButton
+        android:id="@+id/ibt9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibt3"
+        android:layout_alignTop="@+id/ibt8"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack9" />
+
+    <ImageButton
+        android:id="@+id/ibt6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibt3"
+        android:layout_below="@+id/ibt3"
+        android:layout_marginTop="68dp"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack6" />
+
+    <ImageButton
+        android:id="@+id/ibt5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibt2"
+        android:layout_alignTop="@+id/ibt6"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack5" />
+
+    <ImageButton
+        android:id="@+id/ibt4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibt1"
+        android:layout_alignTop="@+id/ibt5"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack4" />
+
+    <ImageButton
+        android:id="@+id/ibt7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibt4"
+        android:layout_alignTop="@+id/ibt8"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack7" />
+
+    <ImageButton
+        android:id="@+id/ibt3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ibt2"
+        android:layout_marginRight="17dp"
+        android:layout_toLeftOf="@+id/bt_signOut"
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack3" />
+
+    <ImageButton
+        android:id="@+id/ibt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_sequence"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:layout_toRightOf="@+id/tv_score"
-        android:text="1" />
+        android:onClick="onClickCheck"
+        android:src="@drawable/wrack1" />
 
 </RelativeLayout>

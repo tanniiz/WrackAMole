@@ -18,14 +18,18 @@ public class MainMenu extends Activity {
 		final Button btLogout = (Button)findViewById(R.id.bt_logout);
 		final TextView txtHi = (TextView)findViewById(R.id.txtHi);
 		
+		 // Receiving the data
 		Intent i = getIntent();
-	    // Receiving the data
 	    final String username = i.getStringExtra("username");
 	    txtHi.setText("Welcome, " + username);
 	    
 	    btStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	Intent score = new Intent(
+						MainMenu.this, SelectMode.class);
+				score.putExtra("username", username);
 
+				startActivity(score);
             }
         });
 	    

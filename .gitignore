@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+
+*.ap_
+
+*.ap_
+
+*.apk
+=======
 *.class
 *.classpath
 *.cache
@@ -7,9 +15,38 @@ project.properties
 gen/com/example/wrackamole/BuildConfig.java
 .settings/org.eclipse.jdt.core.prefs
 lint.xml
+<<<<<<< HEAD
 *.jar
 *.class
 *.class
 bin/resources.ap_
 bin/WrackAMole.apk
 bin/classes.dex
+=======
+>>>>>>> FETCH_HEAD
+
+*.class
+
+*.class
+
+*.properties
+
+*.txt
+
+*.cache
+
+*.class
+
+*.class
+
+gen/android/support/v7/appcompat/R.java
+
+gen/com/example/wrackamole/R.java
+
+*.txt
+
+*.class
+>>>>>>> origin/master
+bin/classes/com/example/wrackamole/User.class
+bin/dexedLibs/appcompat_v7-c84c271c2682ebd1183ee3af8e538bf8.jar
+*.class
