@@ -1,95 +1,206 @@
 package com.example.wrackamole;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
-
-;
 
 public class Game extends Activity {
-	String sequence;
+
+	// Components
+	CountDownTimer cdt;
+	String username;
+	TextView greeting;
+	TextView tvTime;
+	TextView tvScore;
+	TextView tvSequence;
+	Button btSignOut;
+	Button btplayPause;
+
+	// Imagebutton (s)
+	ImageButton ibt1;
+	ImageButton ibt2;
+	ImageButton ibt3;
+	ImageButton ibt4;
+	ImageButton ibt5;
+	ImageButton ibt6;
+	ImageButton ibt7;
+	ImageButton ibt8;
+	ImageButton ibt9;
+
+	ArrayList<Integer> sequence = new ArrayList<Integer>() {
+		{
+			add(1);
+			add(2);
+			add(3);
+			add(4);
+			add(5);
+			add(6);
+			add(7);
+			add(8);
+			add(9);
+		}
+	};
+	int pos = 0;
 	int time = 5;
 	int score = 0;
-	// Timer
-	Timer timer = new Timer();
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
-		/*
-		genSequence();
-		
+		// Refer xml components
+		greeting = (TextView) findViewById(R.id.tv_name);
+		tvTime = (TextView) findViewById(R.id.tv_time);
+		tvScore = (TextView) findViewById(R.id.tv_score);
+		tvSequence = (TextView) findViewById(R.id.tv_sequence);
+		btSignOut = (Button) findViewById(R.id.bt_signOut);
+		btplayPause = (Button) findViewById(R.id.bt_playPause);
+		ibt1 = (ImageButton) findViewById(R.id.ibt1);
+		ibt2 = (ImageButton) findViewById(R.id.ibt2);
+		ibt3 = (ImageButton) findViewById(R.id.ibt3);
+		ibt4 = (ImageButton) findViewById(R.id.ibt4);
+		ibt5 = (ImageButton) findViewById(R.id.ibt5);
+		ibt6 = (ImageButton) findViewById(R.id.ibt6);
+		ibt7 = (ImageButton) findViewById(R.id.ibt7);
+		ibt8 = (ImageButton) findViewById(R.id.ibt8);
+		ibt9 = (ImageButton) findViewById(R.id.ibt9);
+
+		shuffleSequence();
 		// Greeting on top
-		TextView greeting = (TextView) findViewById(R.id.tv_name);
 		Intent i = getIntent();
-		final String username = i.getStringExtra("username");
+		username = i.getStringExtra("username");
 		greeting.setText("Welcome, " + username);
 
-		// Components
-		final TextView tvTime = (TextView) findViewById(R.id.tv_time);
-		tvTime.setText(time);
-		final TextView tvScore = (TextView) findViewById(R.id.tv_score);
-		tvScore.setText(score);
-		final TextView tvSequence = (TextView) findViewById(R.id.tv_sequence);
-		tvSequence.setText(sequence);
-		final Button btSignOut = (Button) findViewById(R.id.bt_signOut);
-		final Button btplayPause = (Button) findViewById(R.id.bt_playPause);
-		final Button bt1 = (Button) findViewById(R.id.bt_bt1);
-		final Button bt2 = (Button) findViewById(R.id.bt_bt2);
-		final Button bt3 = (Button) findViewById(R.id.bt_bt3);
-		final Button bt4 = (Button) findViewById(R.id.bt_bt4);
-		final Button bt5 = (Button) findViewById(R.id.bt_bt5);
-		final Button bt6 = (Button) findViewById(R.id.bt_bt6);
-		final Button bt7 = (Button) findViewById(R.id.bt_bt7);
-		final Button bt8 = (Button) findViewById(R.id.bt_bt8);
-		final Button bt9 = (Button) findViewById(R.id.bt_bt9);
-		// Receiving the data
-		/*
-		timer.schedule(new TimerTask() {
+		// setTime tv
+		tvTime.setText("Time Remaining : " + time);
 
-			@Override
-			public void run() {
-				tvTime.setText(time);
-				time--;
+		// setScore tv
+		tvScore.setText("Score : " + score);
+
+		// Show Sequence
+		tvSequence.setText(sequence.toString());
+
+		// Timer
+		cdt = new CountDownTimer(30000, 1000) {
+
+			public void onTick(long millisUntilFinished) {
+				tvTime.setText("seconds remaining: " + millisUntilFinished
+						/ 1000);
 			}
 
-		}, 2 * 60 * 1000);*/
+			public void onFinish() {
+				end();
+			}
+		}.start();
+
 	}
 
 	// Generate Sequence
-	public void genSequence() {
-		ArrayList<Integer> temp = new ArrayList<Integer>() {
-			{
-				add(1);
-				add(2);
-				add(3);
-				add(4);
-				add(5);
-				add(6);
-				add(7);
-				add(8);
-				add(9);
-			}
-		};
-		Collections.shuffle(temp);
-		sequence = temp.toString();
+	public void shuffleSequence() {
+		Collections.shuffle(sequence);
 	}
 
 	// Shuffle the digit symbol
 	public boolean shuffleBoard() {
-		
+
 		return true;
 	}
 
-	public boolean onClickCheck() {
-		
-		return true;
+	// Button's action listener
+	public void onClickCheck(View view) {
+		switch (view.getId()) {
+		case R.id.ibt1:
+			isCorrect(1);
+			break;
+		case R.id.ibt2:
+			isCorrect(2);
+			break;
+		case R.id.ibt3:
+			isCorrect(3);
+			break;
+		case R.id.ibt4:
+			isCorrect(4);
+			break;
+		case R.id.ibt5:
+			isCorrect(5);
+			break;
+		case R.id.ibt6:
+			isCorrect(6);
+			break;
+		case R.id.ibt7:
+			isCorrect(7);
+			break;
+		case R.id.ibt8:
+			isCorrect(8);
+			break;
+		case R.id.ibt9:
+			isCorrect(9);
+		}
+
+	}
+
+	// Check input
+	public boolean isCorrect(int in) {
+		if (in == sequence.get(pos)) {
+			pos++;
+			score += 1;
+			tvScore.setText("Score : " + score);
+			if (pos == 9) {
+				cdt.cancel();
+				end();
+			}
+			return true;
+		} else {
+			score -= 1;
+			tvScore.setText("Score : " + score);
+			return false;
+		}
+
+	}
+
+	// End
+	public void end() {
+		// Dialog properties
+		LayoutInflater li = LayoutInflater.from(this);
+		View prompt = li.inflate(R.layout.result, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setView(prompt);
+		final TextView tvUsername = (TextView) prompt
+				.findViewById(R.id.tvUsername);
+		tvUsername.setText(username);
+		final TextView tvRScore = (TextView) prompt.findViewById(R.id.tvScore);
+		tvRScore.setText("Score : " + score);
+		final TextView tvDuration = (TextView) prompt
+				.findViewById(R.id.tvDuration);
+		tvDuration.setText("Duration : Deaw kon na ja");
+		alertDialogBuilder.setTitle("Result");
+
+		// Dismiss dialog when click cancel
+		alertDialogBuilder.setNegativeButton("OKAY",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+						Intent score = new Intent(Game.this, MainMenu.class);
+						score.putExtra("username", username);
+
+						startActivity(score);
+					}
+				});
+
+		alertDialogBuilder.show();
 	}
 
 }

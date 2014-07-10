@@ -15,6 +15,14 @@ project.properties
 gen/com/example/wrackamole/BuildConfig.java
 .settings/org.eclipse.jdt.core.prefs
 lint.xml
+<<<<<<< HEAD
+*.jar
+*.class
+*.class
+bin/resources.ap_
+bin/WrackAMole.apk
+bin/classes.dex
+=======
 >>>>>>> FETCH_HEAD
 
 *.class
@@ -38,7 +46,26 @@ gen/com/example/wrackamole/R.java
 *.txt
 
 *.class
+<<<<<<< HEAD
 
 *.class
 
 bin/classes/com/example/wrackamole/MainMenu.class
+=======
+>>>>>>> origin/master
+bin/classes/com/example/wrackamole/User.class
+bin/dexedLibs/appcompat_v7-c84c271c2682ebd1183ee3af8e538bf8.jar
+*.class
+>>>>>>> FETCH_HEAD
+
+*.class
+
+*.dex
+
+*.class
+
+*.class
+
+*.class
+
+*.class
