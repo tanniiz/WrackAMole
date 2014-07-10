@@ -22,7 +22,9 @@ public class Game extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
+		/*
 		genSequence();
+		
 		// Greeting on top
 		TextView greeting = (TextView) findViewById(R.id.tv_name);
 		Intent i = getIntent();
@@ -48,7 +50,7 @@ public class Game extends Activity {
 		final Button bt8 = (Button) findViewById(R.id.bt_bt8);
 		final Button bt9 = (Button) findViewById(R.id.bt_bt9);
 		// Receiving the data
-
+		/*
 		timer.schedule(new TimerTask() {
 
 			@Override
@@ -57,7 +59,7 @@ public class Game extends Activity {
 				time--;
 			}
 
-		}, 2 * 60 * 1000);
+		}, 2 * 60 * 1000);*/
 	}
 
 	// Generate Sequence

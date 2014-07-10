@@ -34,3 +34,7 @@ lint.xml
 gen/android/support/v7/appcompat/R.java
 
 gen/com/example/wrackamole/R.java
+
+*.txt
+
+*.class
