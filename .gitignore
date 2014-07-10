@@ -1,6 +1,28 @@
+<<<<<<< HEAD
 
 *.ap_
 
 *.ap_
 
 *.apk
+=======
+*.class
+*.classpath
+*.cache
+*.txt
+gen/android/support/v7/appcompat/R.java
+project.properties
+gen/com/example/wrackamole/BuildConfig.java
+.settings/org.eclipse.jdt.core.prefs
+lint.xml
+>>>>>>> FETCH_HEAD
+
+*.class
+
+*.class
+
+*.properties
+
+*.txt
+
+*.cache
