@@ -179,7 +179,7 @@ public class Game extends Activity {
 
 	}
 
-	// End Result Dialog
+	// End
 	public void end() {
 		long i = db.ressultRec(username, score, level);
 		if (i != -1) {
@@ -221,15 +221,6 @@ public class Game extends Activity {
 		alertDialogBuilder.show();
 	}
 
-
-	// Get X Y
-	/*
-	 * public boolean onTouchEvent(MotionEvent event) { int x =
-	 * (int)event.getX(); int y = (int)event.getY(); switch (event.getAction())
-	 * { case MotionEvent.ACTION_DOWN: case MotionEvent.ACTION_MOVE: case
-	 * MotionEvent.ACTION_UP: } return false; }
-	 */
-
 	public void intro() {
 		// Dialog properties
 		LayoutInflater li = LayoutInflater.from(this);
@@ -254,6 +245,5 @@ public class Game extends Activity {
 		alertDialogBuilder.show();
 
 	}
->>>>>>> origin/master
 
 }

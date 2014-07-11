@@ -10,7 +10,7 @@
 *.classpath
 *.cache
 *.txt
-
+gen/android/support/v7/appcompat/R.java
 project.properties
 gen/com/example/wrackamole/BuildConfig.java
 .settings/org.eclipse.jdt.core.prefs
@@ -38,6 +38,10 @@ bin/classes.dex
 *.class
 
 *.class
+
+gen/android/support/v7/appcompat/R.java
+
+gen/com/example/wrackamole/R.java
 
 *.txt
 
@@ -76,20 +80,8 @@ bin/dexedLibs/appcompat_v7-c84c271c2682ebd1183ee3af8e538bf8.jar
 
 *.apk
 
-project.properties
-
-*.class
-
-*.xml
-
-*.class
-
-*.class
-
-*.class
-
 gen/android/support/v7/appcompat/R.java
 
 gen/com/example/wrackamole/R.java
 
-src/com/example/wrackamole/SelectMode2.java
+project.properties

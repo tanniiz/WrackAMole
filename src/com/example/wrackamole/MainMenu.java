@@ -26,7 +26,7 @@ public class MainMenu extends Activity {
 	    btStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	Intent score = new Intent(
-						MainMenu.this, SelectMode2.class);
+						MainMenu.this, SelectMode.class);
 				score.putExtra("username", username);
 
 				startActivity(score);

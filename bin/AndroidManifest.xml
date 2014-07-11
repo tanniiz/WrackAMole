@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".MainMenu"></activity>
         <activity android:name=".Score"></activity>
-        <activity android:name=".SelectMode2"></activity>
+        <activity android:name=".SelectMode"></activity>
         <activity android:name=".Game"></activity>
     </application>
 </manifest>
