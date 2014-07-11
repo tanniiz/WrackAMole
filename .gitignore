@@ -99,3 +99,11 @@ bin/classes/android/support/v7/appcompat/R$anim.class
 *.class
 
 *.txt
+
+*.dex
+
+*.class
+
+*.apk
+
+*.ap_

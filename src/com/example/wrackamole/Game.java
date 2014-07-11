@@ -229,7 +229,7 @@ public class Game extends Activity {
 		long i = db.ressultRec(username, score, level, duration,
 				sequence.toString());
 		if (i != -1) {
-			Toast.makeText(Game.this, "Your score has been recorded",
+			Toast.makeText(Game.this, "Your score has been recorded: " + i,
 					Toast.LENGTH_LONG).show();
 		} else {
 			Toast.makeText(Game.this,
