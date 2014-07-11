@@ -91,3 +91,11 @@ bin/dexedLibs/appcompat_v7-c84c271c2682ebd1183ee3af8e538bf8.jar
 bin/resources.ap_
 
 bin/WrackAMole.apk
+
+bin/classes/android/support/v7/appcompat/R$anim.class
+
+*.class
+
+*.class
+
+*.txt

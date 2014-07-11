@@ -15,6 +15,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String dbName = "username";
 	private static final String TABLE_NAME = "USER";
 	private static final String TABLE_RESULT = "RESULT";
+	private static final String TABLE_ONCLICK = "ONCLICK";
 	private static final String KEY_USERID = "userid";
 	private static final String KEY_USERNAME = "username";
 	private static final String KEY_SCORE = "score";
@@ -24,6 +25,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String KEY_START = "start_time";
 	private static final String KEY_END = "end_time";
 	private static final String KEY_DATE = "date";
+	private static final String KEY_GAMEID = "gameids";
+	private static final String KEY_TARGET_POSX = "target_x";
+	private static final String KEY_TARGET_POSY = "target_y";
+	private static final String KEY_USER_POSX = "user_x";
+	private static final String KEY_USER_POSY = "user_y";
+	private static final String KEY_USER_PRESSURE = "pressure";
 
 	private SQLiteDatabase db;
 
@@ -166,6 +173,31 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 
 		// execute insertion
-		return db.insert(TABLE_RESULT, null, values);
+		if(db.insert(TABLE_RESULT, null, values) != -1) {
+			Cursor c = db.rawQuery("SELECT MAX(gameid) FROM " + TABLE_RESULT, null);
+			c.moveToFirst();
+			return c.getInt(cursor.getColumnIndex(KEY_GAMEID));
+		} else {
+			return -1;
+		}
 	}
+	/*
+	public long posRec(String username, ArrayList<Float> onClick){
+		db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
+				+ " WHERE username=?", new String[] { username });
+		cursor.moveToFirst();
+		int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
+		
+		ContentValues values = new ContentValues();
+		values.put(KEY_USERID, onClick[]);
+		values.put(KEY_SCORE, score);
+		values.put(KEY_LEVEL, level);
+		values.put(KEY_DURATION, duration);
+		values.put(KEY_SEQUENCE, seq);
+		
+		ContentValues values = new ContentValues();
+		
+		return db.insert(TABLE_ONCLICK, null, values);
+	}*/
 }
