@@ -107,3 +107,13 @@ bin/classes/android/support/v7/appcompat/R$anim.class
 *.apk
 
 *.ap_
+
+bin/classes.dex
+
+bin/classes/com/example/wrackamole/Game$1.class
+
+bin/classes/com/example/wrackamole/Game.class
+
+bin/resources.ap_
+
+bin/WrackAMole.apk

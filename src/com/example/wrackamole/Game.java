@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -38,6 +40,7 @@ public class Game extends Activity {
 	TableLayout im_table;
 	TableLayout lg_table;
 	int duration;
+	ArrayList<float[]> pointing = new ArrayList<float[]>();
 
 	ArrayList<ImageButton> im_list = new ArrayList<ImageButton>();
 
@@ -77,7 +80,6 @@ public class Game extends Activity {
 		public void onClick(View v) {
 			// Toast.makeText(Game.this, v.getId() + "",
 			// Toast.LENGTH_LONG).show();
-
 			switch (v.getId()) {
 			case 1:
 				isCorrect(1);
@@ -183,6 +185,8 @@ public class Game extends Activity {
 
 		for (int z = 0; z < 9; z++) {
 			ImageButton temp = new ImageButton(this);
+
+			// USE THIS STATEMENT IF WANT TO USE PICTURE
 			// temp.setImageResource(drawable[z]);
 			temp.setMinimumHeight(100);
 			temp.setMinimumWidth(100);
@@ -191,6 +195,14 @@ public class Game extends Activity {
 			temp.setId(z + 1);
 			temp.setLayoutParams(bo_params);
 			temp.setOnClickListener(imgButtonOnClicklistener);
+			temp.setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					onTouchEvent(event);
+					return false;
+				}
+			});
 			im_list.add(temp);
 		}
 		Collections.shuffle(im_list);
@@ -285,6 +297,8 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
+						// Put starter here
+
 						dialog.cancel();
 					}
 				});
@@ -322,4 +336,23 @@ public class Game extends Activity {
 		lg_table.addView(numRow);
 	}
 
+	// On touch
+	public boolean onTouchEvent(MotionEvent event) {
+		int x = (int) event.getX();
+		int y = (int) event.getY();
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			pointing.add(new float[] { 0, 0, event.getX(), event.getY(),
+					event.getPressure() });
+			Toast.makeText(
+					this,
+					"X is " + event.getX() + "Y is " + event.getY()
+							+ "Pressure is " + event.getPressure(),
+					Toast.LENGTH_LONG).show();
+			// case MotionEvent.ACTION_MOVE:
+			// case MotionEvent.ACTION_UP:
+		}
+
+		return false;
+	}
 }
