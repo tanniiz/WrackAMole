@@ -13,7 +13,7 @@ public class SelectMode extends Activity {
 		
 		Button btEasy = (Button)findViewById(R.id.bt_easy);
 		Button btHard = (Button)findViewById(R.id.bt_hard);
-		Button btBack = (Button)findViewById(R.id.bt_back);
+		Button btBack = (Button)findViewById(R.id.im_table);
 		
 		Intent i = getIntent();
 	    // Receiving the data

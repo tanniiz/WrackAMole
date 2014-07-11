@@ -4,17 +4,22 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Game extends Activity {
@@ -30,17 +35,22 @@ public class Game extends Activity {
 	TextView tvSequence;
 	Button btSignOut;
 	Button btplayPause;
+	TableLayout im_table;
+	TableLayout lg_table;
+	int duration;
 
-	// Imagebutton (s)
-	ImageButton ibt1;
-	ImageButton ibt2;
-	ImageButton ibt3;
-	ImageButton ibt4;
-	ImageButton ibt5;
-	ImageButton ibt6;
-	ImageButton ibt7;
-	ImageButton ibt8;
-	ImageButton ibt9;
+	ArrayList<ImageButton> im_list = new ArrayList<ImageButton>();
+
+	Integer[] legends = new Integer[] { Color.BLACK, Color.BLUE, Color.GREEN,
+			Color.MAGENTA, Color.RED, Color.YELLOW, Color.LTGRAY, Color.GRAY,
+			Color.CYAN };
+	int[] drawable = new int[] { R.drawable.wrack1, R.drawable.wrack2,
+			R.drawable.wrack3, R.drawable.wrack4, R.drawable.wrack5,
+			R.drawable.wrack6, R.drawable.wrack7, R.drawable.wrack8,
+			R.drawable.wrack9 };
+
+	TableRow.LayoutParams bo_params = new TableRow.LayoutParams();
+	TableRow.LayoutParams lg_params = new TableRow.LayoutParams();
 
 	ArrayList<Integer> sequence = new ArrayList<Integer>() {
 		{
@@ -60,17 +70,63 @@ public class Game extends Activity {
 	int time = 5;
 	int score = 0;
 
+	// OnClickPrivate
+	private View.OnClickListener imgButtonOnClicklistener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// Toast.makeText(Game.this, v.getId() + "",
+			// Toast.LENGTH_LONG).show();
+
+			switch (v.getId()) {
+			case 1:
+				isCorrect(1);
+				break;
+			case 2:
+				isCorrect(2);
+				break;
+			case 3:
+				isCorrect(3);
+				break;
+			case 4:
+				isCorrect(4);
+				break;
+			case 5:
+				isCorrect(5);
+				break;
+			case 6:
+				isCorrect(6);
+				break;
+			case 7:
+				isCorrect(7);
+				break;
+			case 8:
+				isCorrect(8);
+				break;
+			case 9:
+				isCorrect(9);
+			}
+
+		}
+	};
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
+		// Shuffle Color
+		Collections.shuffle(Arrays.asList(legends));
+
+		// Set Margins
+		bo_params.setMargins(50, 50, 50, 50);
+		lg_params.setMargins(20, 0, 20, 0);
 
 		// Greeting on top
 		Intent i = getIntent();
 		username = i.getStringExtra("username");
 		level = i.getIntExtra("level", -1);
-		
+
 		intro();
-		
+
 		this.db = new MySQLiteHelper(this);
 		// Refer xml components
 		greeting = (TextView) findViewById(R.id.tv_name);
@@ -80,17 +136,13 @@ public class Game extends Activity {
 		tvSequence = (TextView) findViewById(R.id.tv_sequence);
 		btSignOut = (Button) findViewById(R.id.bt_signOut);
 		btplayPause = (Button) findViewById(R.id.bt_playPause);
-		ibt1 = (ImageButton) findViewById(R.id.ibt1);
-		ibt2 = (ImageButton) findViewById(R.id.ibt2);
-		ibt3 = (ImageButton) findViewById(R.id.ibt3);
-		ibt4 = (ImageButton) findViewById(R.id.ibt4);
-		ibt5 = (ImageButton) findViewById(R.id.ibt5);
-		ibt6 = (ImageButton) findViewById(R.id.ibt6);
-		ibt7 = (ImageButton) findViewById(R.id.ibt7);
-		ibt8 = (ImageButton) findViewById(R.id.ibt8);
-		ibt9 = (ImageButton) findViewById(R.id.ibt9);
+		im_table = (TableLayout) findViewById(R.id.im_table);
+		lg_table = (TableLayout) findViewById(R.id.lg_table);
+
+		// create imageButton
 
 		shuffleSequence();
+		shuffleBoard();
 
 		// setTime tv
 		tvTime.setText("Time Remaining : " + time);
@@ -101,12 +153,15 @@ public class Game extends Activity {
 		// Show Sequence
 		tvSequence.setText(sequence.toString());
 
+		// Show Legends
+		showLegends();
 		// Timer
 		cdt = new CountDownTimer(30000, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 				tvTime.setText("seconds remaining: " + millisUntilFinished
 						/ 1000);
+				duration = 30 - (int) millisUntilFinished / 1000;
 			}
 
 			public void onFinish() {
@@ -122,40 +177,29 @@ public class Game extends Activity {
 	}
 
 	// Shuffle the digit symbol
-	public boolean shuffleBoard() {
+	public void shuffleBoard() {
+		im_table.removeAllViews();
+		im_list.clear();
 
-		return true;
-	}
-
-	// Button's action listener
-	public void onClickCheck(View view) {
-		switch (view.getId()) {
-		case R.id.ibt1:
-			isCorrect(1);
-			break;
-		case R.id.ibt2:
-			isCorrect(2);
-			break;
-		case R.id.ibt3:
-			isCorrect(3);
-			break;
-		case R.id.ibt4:
-			isCorrect(4);
-			break;
-		case R.id.ibt5:
-			isCorrect(5);
-			break;
-		case R.id.ibt6:
-			isCorrect(6);
-			break;
-		case R.id.ibt7:
-			isCorrect(7);
-			break;
-		case R.id.ibt8:
-			isCorrect(8);
-			break;
-		case R.id.ibt9:
-			isCorrect(9);
+		for (int z = 0; z < 9; z++) {
+			ImageButton temp = new ImageButton(this);
+			// temp.setImageResource(drawable[z]);
+			temp.setMinimumHeight(100);
+			temp.setMinimumWidth(100);
+			temp.setBackgroundColor(legends[z]);
+			temp.setTag(z + 1);
+			temp.setId(z + 1);
+			temp.setLayoutParams(bo_params);
+			temp.setOnClickListener(imgButtonOnClicklistener);
+			im_list.add(temp);
+		}
+		Collections.shuffle(im_list);
+		for (int i = 0; i < 3; i++) {
+			TableRow temp = new TableRow(this);
+			for (int y = 0; y < 3; y++) {
+				temp.addView(im_list.get((y) + (i * 3)));
+			}
+			im_table.addView(temp);
 		}
 
 	}
@@ -166,6 +210,7 @@ public class Game extends Activity {
 			pos++;
 			score += 1;
 			tvScore.setText("Score : " + score);
+			shuffleBoard();
 			if (pos == 9) {
 				cdt.cancel();
 				end();
@@ -181,7 +226,8 @@ public class Game extends Activity {
 
 	// End
 	public void end() {
-		long i = db.ressultRec(username, score, level);
+		long i = db.ressultRec(username, score, level, duration,
+				sequence.toString());
 		if (i != -1) {
 			Toast.makeText(Game.this, "Your score has been recorded",
 					Toast.LENGTH_LONG).show();
@@ -202,7 +248,8 @@ public class Game extends Activity {
 		tvRScore.setText("Score : " + score);
 		final TextView tvDuration = (TextView) prompt
 				.findViewById(R.id.tvDuration);
-		tvDuration.setText("Duration : Deaw kon na ja");
+
+		tvDuration.setText("Duration : " + duration);
 		alertDialogBuilder.setTitle("Result");
 
 		// Dismiss dialog when click cancel
@@ -244,6 +291,35 @@ public class Game extends Activity {
 
 		alertDialogBuilder.show();
 
+	}
+
+	public void showLegends() {
+		TableRow numRow = new TableRow(this);
+		TableRow colorRow = new TableRow(this);
+		for (int z = 0; z < 9; z++) {
+			ImageButton temp = new ImageButton(this);
+			temp.setMinimumHeight(50);
+			temp.setMinimumWidth(50);
+			temp.setBackgroundColor(legends[z]);
+			temp.setTag(z + 11);
+			temp.setId(z + 11);
+			temp.setLayoutParams(lg_params);
+			colorRow.addView(temp);
+		}
+		for (int z = 0; z < 9; z++) {
+			TextView temp = new TextView(this);
+			temp.setTypeface(null, Typeface.BOLD);
+			temp.setTextSize(30);
+			temp.setMinimumHeight(50);
+			temp.setMinimumWidth(50);
+			temp.setLayoutParams(lg_params);
+			temp.setGravity(Gravity.CENTER);
+			temp.setText((z + 1) + "");
+			numRow.addView(temp);
+		}
+
+		lg_table.addView(colorRow);
+		lg_table.addView(numRow);
 	}
 
 }

@@ -70,109 +70,35 @@
         android:text="Score :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/tv_legends"
+    <TableLayout
+        android:id="@+id/im_table"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="107dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_below="@+id/tv_sequence"
+        android:layout_centerHorizontal="true" >
+    </TableLayout>
 
     <TextView
         android:id="@+id/tv_digitSymKey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tv_legends"
         android:layout_alignLeft="@+id/tv_score"
-        android:layout_marginLeft="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="161dp"
+        android:layout_marginLeft="17dp"
         android:text="Digit-Symbol key :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageButton
-        android:id="@+id/ibt2"
+    <TableLayout
+        android:id="@+id/lg_table"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ibt1"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack2" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_digitSymKey"
+        android:layout_marginTop="51dp" >
 
-    <ImageButton
-        android:id="@+id/ibt8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tv_digitSymKey"
-        android:layout_alignLeft="@+id/ibt2"
-        android:layout_marginBottom="107dp"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack8" />
-
-    <ImageButton
-        android:id="@+id/ibt9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ibt3"
-        android:layout_alignTop="@+id/ibt8"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack9" />
-
-    <ImageButton
-        android:id="@+id/ibt6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ibt3"
-        android:layout_below="@+id/ibt3"
-        android:layout_marginTop="68dp"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack6" />
-
-    <ImageButton
-        android:id="@+id/ibt5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ibt2"
-        android:layout_alignTop="@+id/ibt6"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack5" />
-
-    <ImageButton
-        android:id="@+id/ibt4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ibt1"
-        android:layout_alignTop="@+id/ibt5"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack4" />
-
-    <ImageButton
-        android:id="@+id/ibt7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ibt4"
-        android:layout_alignTop="@+id/ibt8"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack7" />
-
-    <ImageButton
-        android:id="@+id/ibt3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ibt2"
-        android:layout_marginRight="17dp"
-        android:layout_toLeftOf="@+id/bt_signOut"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack3" />
-
-    <ImageButton
-        android:id="@+id/ibt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_sequence"
-        android:layout_marginTop="48dp"
-        android:layout_toRightOf="@+id/tv_score"
-        android:onClick="onClickCheck"
-        android:src="@drawable/wrack1" />
+    </TableLayout>
 
 </RelativeLayout>
