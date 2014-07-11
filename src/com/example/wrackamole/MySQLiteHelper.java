@@ -173,13 +173,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 
 		// execute insertion
-		if(db.insert(TABLE_RESULT, null, values) != -1) {
-			Cursor c = db.rawQuery("SELECT MAX(gameid) FROM " + TABLE_RESULT, null);
-			c.moveToFirst();
-			return c.getInt(cursor.getColumnIndex(KEY_GAMEID));
-		} else {
-			return -1;
-		}
+		return db.insert(TABLE_RESULT, null, values);
 	}
 	/*
 	public long posRec(String username, ArrayList<Float> onClick){
