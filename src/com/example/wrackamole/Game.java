@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,6 +40,7 @@ public class Game extends Activity {
 	Button btplayPause;
 	TableLayout im_table;
 	TableLayout lg_table;
+	int[] targetLocation = new int[9];
 	int duration;
 	ArrayList<float[]> pointing = new ArrayList<float[]>();
 
@@ -132,7 +134,6 @@ public class Game extends Activity {
 		this.db = new MySQLiteHelper(this);
 		// Refer xml components
 		greeting = (TextView) findViewById(R.id.tv_name);
-		greeting.setText("Welcome, " + username);
 		tvTime = (TextView) findViewById(R.id.tv_time);
 		tvScore = (TextView) findViewById(R.id.tv_score);
 		tvSequence = (TextView) findViewById(R.id.tv_sequence);
@@ -141,22 +142,9 @@ public class Game extends Activity {
 		im_table = (TableLayout) findViewById(R.id.im_table);
 		lg_table = (TableLayout) findViewById(R.id.lg_table);
 
-		// create imageButton
+	}
 
-		shuffleSequence();
-		shuffleBoard();
-
-		// setTime tv
-		tvTime.setText("Time Remaining : " + time);
-
-		// setScore tv
-		tvScore.setText("Score : " + score);
-
-		// Show Sequence
-		tvSequence.setText(sequence.toString());
-
-		// Show Legends
-		showLegends();
+	public void startTimer() {
 		// Timer
 		cdt = new CountDownTimer(30000, 1000) {
 
@@ -170,7 +158,6 @@ public class Game extends Activity {
 				end();
 			}
 		}.start();
-
 	}
 
 	// Generate Sequence
@@ -299,6 +286,28 @@ public class Game extends Activity {
 					public void onClick(DialogInterface dialog, int id) {
 						// Put starter here
 
+						// Shuffle sequence
+						shuffleSequence();
+
+						// Show board
+						shuffleBoard();
+						// Show Username
+						greeting.setText("Welcome, " + username);
+
+						// setTime tv
+						tvTime.setText("Time Remaining : " + time);
+
+						// setScore tv
+						tvScore.setText("Score : " + score);
+
+						// Show Sequence
+						tvSequence.setText(sequence.toString());
+
+						// Show Legends
+						showLegends();
+
+						// Start timer
+						startTimer();
 						dialog.cancel();
 					}
 				});
@@ -344,15 +353,30 @@ public class Game extends Activity {
 		case MotionEvent.ACTION_DOWN:
 			pointing.add(new float[] { 0, 0, event.getX(), event.getY(),
 					event.getPressure() });
-			Toast.makeText(
-					this,
-					"X is " + event.getX() + "Y is " + event.getY()
-							+ "Pressure is " + event.getPressure(),
-					Toast.LENGTH_LONG).show();
+			/*
+			 * Toast.makeText( this, "X is " + event.getX() + "Y is " +
+			 * event.getY() + "Pressure is " + event.getPressure(),
+			 * Toast.LENGTH_LONG).show();
+			 */
 			// case MotionEvent.ACTION_MOVE:
 			// case MotionEvent.ACTION_UP:
 		}
 
 		return false;
+	}
+
+	// On back
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			cdt.cancel();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	// Get target position
+	public void getTargetLocation() {
+		for (int i = 0; i < 9; i++) {
+			im_table.getChildAt(i).getLocationOnScreen(targetLocation);
+		}
 	}
 }
