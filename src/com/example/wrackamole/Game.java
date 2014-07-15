@@ -21,7 +21,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
