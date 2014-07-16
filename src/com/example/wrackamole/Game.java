@@ -265,6 +265,7 @@ public class Game extends Activity {
 						long i = db.ressultRec(username, score, level,
 								duration, sequence.toString());
 						if (i != -1) {
+							db.posRec(i, pointing);
 							Toast.makeText(Game.this,
 									"Your score has been recorded: " + i,
 									Toast.LENGTH_LONG).show();
