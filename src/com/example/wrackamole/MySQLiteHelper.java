@@ -180,20 +180,20 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		return db.insert(TABLE_RESULT, null, values);
 	}
 
-	public long posRec(int gameId, ArrayList<Float> onClick) {
+	public void posRec(long gameId, ArrayList<float[]> pointing) {
 		db = this.getWritableDatabase();
 
-		ContentValues values = new ContentValues();
-		values.put(KEY_GAMEID, gameId);
-		values.put(KEY_TARGET_POSX, onClick.get(0));
-		values.put(KEY_TARGET_POSY, onClick.get(1));
-		values.put(KEY_USER_POSX, onClick.get(2));
-		values.put(KEY_USER_POSY, onClick.get(3));
-		values.put(KEY_USER_PRESSURE, onClick.get(4));
-		values.put(KEY_DELTA, onClick.get(5));
-		
-
-		return db.insert(TABLE_ONCLICK, null, values);
+		for(int i = 0 ; i < pointing.size() ; i++) {
+			ContentValues values = new ContentValues();
+			values.put(KEY_GAMEID, gameId);
+			values.put(KEY_TARGET_POSX, pointing.get(i)[0]);
+			values.put(KEY_TARGET_POSY, pointing.get(i)[1]);
+			values.put(KEY_USER_POSX, pointing.get(i)[2]);
+			values.put(KEY_USER_POSY, pointing.get(i)[3]);
+			values.put(KEY_USER_PRESSURE, pointing.get(i)[4]);
+			values.put(KEY_DELTA, pointing.get(i)[5]);
+			db.insert(TABLE_ONCLICK, null, values);
+		}
 	}
 
 }
