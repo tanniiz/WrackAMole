@@ -127,3 +127,11 @@ bin/WrackAMole.apk
 *.class
 
 *.cache
+
+*.ap_
+
+*.apk
+
+*.class
+
+*.txt

@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,7 +21,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,7 +40,9 @@ public class Game extends Activity {
 	Button btplayPause;
 	TableLayout im_table;
 	TableLayout lg_table;
+	int[][] targetLocation = new int[10][10];
 	int duration;
+	Handler _h = new Handler();
 	ArrayList<float[]> pointing = new ArrayList<float[]>();
 
 	ArrayList<ImageButton> im_list = new ArrayList<ImageButton>();
@@ -128,11 +131,11 @@ public class Game extends Activity {
 		level = i.getIntExtra("level", -1);
 
 		intro();
+		
 
 		this.db = new MySQLiteHelper(this);
 		// Refer xml components
 		greeting = (TextView) findViewById(R.id.tv_name);
-		greeting.setText("Welcome, " + username);
 		tvTime = (TextView) findViewById(R.id.tv_time);
 		tvScore = (TextView) findViewById(R.id.tv_score);
 		tvSequence = (TextView) findViewById(R.id.tv_sequence);
@@ -140,37 +143,33 @@ public class Game extends Activity {
 		btplayPause = (Button) findViewById(R.id.bt_playPause);
 		im_table = (TableLayout) findViewById(R.id.im_table);
 		lg_table = (TableLayout) findViewById(R.id.lg_table);
+	
+	}
 
-		// create imageButton
-
-		shuffleSequence();
-		shuffleBoard();
-
-		// setTime tv
-		tvTime.setText("Time Remaining : " + time);
-
-		// setScore tv
-		tvScore.setText("Score : " + score);
-
-		// Show Sequence
-		tvSequence.setText(sequence.toString());
-
-		// Show Legends
-		showLegends();
+	public void startTimer() {
 		// Timer
 		cdt = new CountDownTimer(30000, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 				tvTime.setText("seconds remaining: " + millisUntilFinished
 						/ 1000);
-				duration = 30 - (int) millisUntilFinished / 1000;
+				duration = 30 - (int)millisUntilFinished / 1000;
+				boolean flag = false;
+				
+				if(millisUntilFinished < 30000 && !flag) {
+					getTargetLocation();
+					for(int i = 0; i < 9 ; i++) {
+						Toast.makeText(Game.this, "" + targetLocation[i][0] + " " + targetLocation[i][1], 500).show();
+					}
+					flag = true;
+				}
 			}
 
 			public void onFinish() {
+				tvTime.setText("seconds remaining: 0");
 				end();
 			}
 		}.start();
-
 	}
 
 	// Generate Sequence
@@ -213,6 +212,8 @@ public class Game extends Activity {
 			}
 			im_table.addView(temp);
 		}
+		im_table.requestLayout();
+		
 
 	}
 
@@ -238,16 +239,6 @@ public class Game extends Activity {
 
 	// End
 	public void end() {
-		long i = db.ressultRec(username, score, level, duration,
-				sequence.toString());
-		if (i != -1) {
-			Toast.makeText(Game.this, "Your score has been recorded: " + i,
-					Toast.LENGTH_LONG).show();
-		} else {
-			Toast.makeText(Game.this,
-					"Problem occured while trying to record your score",
-					Toast.LENGTH_LONG).show();
-		}
 		// Dialog properties
 		LayoutInflater li = LayoutInflater.from(this);
 		View prompt = li.inflate(R.layout.result, null);
@@ -269,6 +260,16 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
+						long i = db.ressultRec(username, score, level, duration,
+								sequence.toString());
+						if (i != -1) {
+							Toast.makeText(Game.this, "Your score has been recorded: " + i,
+									Toast.LENGTH_LONG).show();
+						} else {
+							Toast.makeText(Game.this,
+									"Problem occured while trying to record your score",
+									Toast.LENGTH_LONG).show();
+						}
 						dialog.cancel();
 						Intent score = new Intent(Game.this, MainMenu.class);
 						score.putExtra("username", username);
@@ -298,7 +299,33 @@ public class Game extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// Put starter here
+						// Shuffle sequence
+						shuffleSequence();
 
+						// Show board
+						shuffleBoard();
+
+						// Get Target Location
+						//getTargetLocation();
+
+						// Show Username
+						greeting.setText("Welcome, " + username);
+
+						// setTime tv
+						tvTime.setText("Time Remaining : " + time);
+
+						// setScore tv
+						tvScore.setText("Score : " + score);
+
+						// Show Sequence
+						tvSequence.setText(sequence.toString());
+
+						// Show Legends
+						showLegends();
+
+						// Start timer
+						startTimer();
+						
 						dialog.cancel();
 					}
 				});
@@ -344,15 +371,49 @@ public class Game extends Activity {
 		case MotionEvent.ACTION_DOWN:
 			pointing.add(new float[] { 0, 0, event.getX(), event.getY(),
 					event.getPressure() });
+
 			Toast.makeText(
 					this,
 					"X is " + event.getX() + "Y is " + event.getY()
 							+ "Pressure is " + event.getPressure(),
 					Toast.LENGTH_LONG).show();
+
 			// case MotionEvent.ACTION_MOVE:
 			// case MotionEvent.ACTION_UP:
 		}
 
 		return false;
 	}
+
+	// On back
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			cdt.cancel();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	// Get target position
+	public void getTargetLocation() {
+		ImageButton[] im = new ImageButton[9];
+		
+		for(int i = 0 ; i < 9 ; i++) {
+			im[i] = im_list.get(i);
+			im[i].getLocationOnScreen(targetLocation[i]);
+		}
+	}
+	
+	public double distanceTo(float x, float y) {
+		switch(pos){
+		case 1: im_list.
+		
+		
+		}
+		
+		
+        double dx = a.x - b.x;
+        double dy = a.y - b.y;
+        distance = Math.sqrt(dx*dx + dy*dy);
+        return distance;
+    }
 }
