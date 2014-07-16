@@ -189,8 +189,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		values.put(KEY_TARGET_POSY, onClick.get(1));
 		values.put(KEY_USER_POSX, onClick.get(2));
 		values.put(KEY_USER_POSY, onClick.get(3));
-		values.put(KEY_DELTA, onClick.get(4));
-		values.put(KEY_USER_PRESSURE, onClick.get(5));
+		values.put(KEY_USER_PRESSURE, onClick.get(4));
+		values.put(KEY_DELTA, onClick.get(5));
+		
 
 		return db.insert(TABLE_ONCLICK, null, values);
 	}
