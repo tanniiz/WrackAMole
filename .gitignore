@@ -117,3 +117,13 @@ bin/classes/com/example/wrackamole/Game.class
 bin/resources.ap_
 
 bin/WrackAMole.apk
+
+*.class
+
+*.class
+
+*.class
+
+*.class
+
+*.cache

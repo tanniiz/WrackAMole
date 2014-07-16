@@ -15,7 +15,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String dbName = "username";
 	private static final String TABLE_NAME = "USER";
 	private static final String TABLE_RESULT = "RESULT";
-	private static final String TABLE_ONCLICK = "ONCLICK";
+	private static final String TABLE_ONCLICK = "CLICK";
 	private static final String KEY_USERID = "userid";
 	private static final String KEY_USERNAME = "username";
 	private static final String KEY_SCORE = "score";
@@ -30,6 +30,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String KEY_TARGET_POSY = "target_y";
 	private static final String KEY_USER_POSX = "user_x";
 	private static final String KEY_USER_POSY = "user_y";
+	private static final String KEY_DELTA = "delta";
 	private static final String KEY_USER_PRESSURE = "pressure";
 
 	private SQLiteDatabase db;
@@ -47,9 +48,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		String CREATE_RESULT_TABLE = "CREATE TABLE result ( "
 				+ "gameid INTEGER PRIMARY KEY AUTOINCREMENT, userid INTEGER, score INTEGER, level INTEGER, duration INTEGER, sequence STRING, start_time DATETIME, end_time DATETIME DEFAULT CURRENT_TIME, date DATETIME DEFAULT CURRENT_DATE  )";
 
+		String CREATE_ONCLICK_TABLE = "CREATE TABLE click ( "
+				+ "gameid INTEGER, target_x FLOAT, target_y FLOAT, user_x FLOAT, user_y FLOAT, delta FLOAT, pressure FLOAT)";
 		// execute creating table
 		db.execSQL(CREATE_USERNAME_TABLE);
 		db.execSQL(CREATE_RESULT_TABLE);
+		db.execSQL(CREATE_ONCLICK_TABLE);
 	}
 
 	@Override
@@ -112,7 +116,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
 			Cursor c = db.rawQuery("SELECT * FROM RESULT WHERE userid=" + id
 					+ " ORDER BY score DESC", null);
-			if(c.getCount() > 0) {
+			if (c.getCount() > 0) {
 				if (c.moveToFirst()) {
 					do {
 						User user = new User();
@@ -145,53 +149,50 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				user.setUsername(username);
 				user.setScore(c.getInt(c.getColumnIndex(KEY_SCORE)));
 				user.setLevel(c.getInt(c.getColumnIndex(KEY_LEVEL)));
-			} 
+			}
 		}
 
 		return user;
 	}
-	
-	//public void ressultRec(String username, int score, int level, int duration, String seq, String startTime, String endTime, String date) {
-	public long ressultRec(String username, int score, int level, int duration, String seq) {	
+
+	// public void ressultRec(String username, int score, int level, int
+	// duration, String seq, String startTime, String endTime, String date) {
+	public long ressultRec(String username, int score, int level, int duration,
+			String seq) {
 		db = this.getWritableDatabase();
-		
+
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
 				+ " WHERE username=?", new String[] { username });
 		cursor.moveToFirst();
 		int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
-		
+
 		ContentValues values = new ContentValues();
 		values.put(KEY_USERID, id);
 		values.put(KEY_SCORE, score);
 		values.put(KEY_LEVEL, level);
 		values.put(KEY_DURATION, duration);
 		values.put(KEY_SEQUENCE, seq);
-		//values.put(KEY_LEVEL, level);
-		//values.put(KEY_START, startTime);
-		//values.put(KEY_END, endTime);
-		//values.put(KEY_DATE, date);
-		
+		// values.put(KEY_START, startTime);
+		// values.put(KEY_END, endTime);
+		// values.put(KEY_DATE, date);
 
 		// execute insertion
 		return db.insert(TABLE_RESULT, null, values);
 	}
-	/*
-	public long posRec(String username, ArrayList<Float> onClick){
+
+	public long posRec(int gameId, ArrayList<Float> onClick) {
 		db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
-				+ " WHERE username=?", new String[] { username });
-		cursor.moveToFirst();
-		int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
-		
+
 		ContentValues values = new ContentValues();
-		values.put(KEY_USERID, onClick[]);
-		values.put(KEY_SCORE, score);
-		values.put(KEY_LEVEL, level);
-		values.put(KEY_DURATION, duration);
-		values.put(KEY_SEQUENCE, seq);
-		
-		ContentValues values = new ContentValues();
-		
+		values.put(KEY_GAMEID, gameId);
+		values.put(KEY_TARGET_POSX, onClick.get(0));
+		values.put(KEY_TARGET_POSY, onClick.get(1));
+		values.put(KEY_USER_POSX, onClick.get(2));
+		values.put(KEY_USER_POSY, onClick.get(3));
+		values.put(KEY_DELTA, onClick.get(4));
+		values.put(KEY_USER_PRESSURE, onClick.get(5));
+
 		return db.insert(TABLE_ONCLICK, null, values);
-	}*/
+	}
+
 }
