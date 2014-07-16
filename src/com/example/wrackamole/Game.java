@@ -40,7 +40,7 @@ public class Game extends Activity {
 	Button btplayPause;
 	TableLayout im_table;
 	TableLayout lg_table;
-	int[][] targetLocation = new int[10][10];
+	int[][] targetLocation = new int[9][2];
 	int duration;
 	Handler _h = new Handler();
 	ArrayList<float[]> pointing = new ArrayList<float[]>();
@@ -131,7 +131,6 @@ public class Game extends Activity {
 		level = i.getIntExtra("level", -1);
 
 		intro();
-		
 
 		this.db = new MySQLiteHelper(this);
 		// Refer xml components
@@ -143,7 +142,7 @@ public class Game extends Activity {
 		btplayPause = (Button) findViewById(R.id.bt_playPause);
 		im_table = (TableLayout) findViewById(R.id.im_table);
 		lg_table = (TableLayout) findViewById(R.id.lg_table);
-	
+
 	}
 
 	public void startTimer() {
@@ -153,13 +152,16 @@ public class Game extends Activity {
 			public void onTick(long millisUntilFinished) {
 				tvTime.setText("seconds remaining: " + millisUntilFinished
 						/ 1000);
-				duration = 30 - (int)millisUntilFinished / 1000;
+				duration = 30 - (int) millisUntilFinished / 1000;
 				boolean flag = false;
-				
-				if(millisUntilFinished < 30000 && !flag) {
+
+				if (millisUntilFinished < 30000 && !flag) {
 					getTargetLocation();
-					for(int i = 0; i < 9 ; i++) {
-						Toast.makeText(Game.this, "" + targetLocation[i][0] + " " + targetLocation[i][1], 500).show();
+					for (int i = 0; i < 9; i++) {
+						Toast.makeText(
+								Game.this,
+								"" + targetLocation[i][0] + " "
+										+ targetLocation[i][1], 500).show();
 					}
 					flag = true;
 				}
@@ -213,7 +215,6 @@ public class Game extends Activity {
 			im_table.addView(temp);
 		}
 		im_table.requestLayout();
-		
 
 	}
 
@@ -260,13 +261,15 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						long i = db.ressultRec(username, score, level, duration,
-								sequence.toString());
+						long i = db.ressultRec(username, score, level,
+								duration, sequence.toString());
 						if (i != -1) {
-							Toast.makeText(Game.this, "Your score has been recorded: " + i,
+							Toast.makeText(Game.this,
+									"Your score has been recorded: " + i,
 									Toast.LENGTH_LONG).show();
 						} else {
-							Toast.makeText(Game.this,
+							Toast.makeText(
+									Game.this,
 									"Problem occured while trying to record your score",
 									Toast.LENGTH_LONG).show();
 						}
@@ -306,7 +309,7 @@ public class Game extends Activity {
 						shuffleBoard();
 
 						// Get Target Location
-						//getTargetLocation();
+						// getTargetLocation();
 
 						// Show Username
 						greeting.setText("Welcome, " + username);
@@ -325,7 +328,7 @@ public class Game extends Activity {
 
 						// Start timer
 						startTimer();
-						
+
 						dialog.cancel();
 					}
 				});
@@ -365,12 +368,24 @@ public class Game extends Activity {
 
 	// On touch
 	public boolean onTouchEvent(MotionEvent event) {
-		int x = (int) event.getX();
-		int y = (int) event.getY();
+		// Calculate the distance from user input to the center of the target
+		/*
+		 * Math.sqrt((y2-y1) + (x2-x1)) targetLocation[sequence.get(pos)][0];
+		 * targetLocation[sequence.get(pos)][1]; int x = (int) event.getX(); int
+		 * y = (int) event.getY();
+		 */
+
+		float distance = (float) Math
+				.sqrt((targetLocation[sequence.get(pos)][1] - event.getY())
+						+ (targetLocation[sequence.get(pos)][0] - event.getX()));
+
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			pointing.add(new float[] { 0, 0, event.getX(), event.getY(),
-					event.getPressure() });
+			// FLOAT[TARGET X, TARGET y, USERINPUT X, USERINPUT Y, PRESSURE,
+			// DISTANCE]
+			pointing.add(new float[] { targetLocation[sequence.get(pos)][0],
+					targetLocation[sequence.get(pos)][1], event.getX(),
+					event.getY(), event.getPressure(), distance });
 
 			Toast.makeText(
 					this,
@@ -395,25 +410,14 @@ public class Game extends Activity {
 
 	// Get target position
 	public void getTargetLocation() {
-		ImageButton[] im = new ImageButton[9];
-		
-		for(int i = 0 ; i < 9 ; i++) {
-			im[i] = im_list.get(i);
-			im[i].getLocationOnScreen(targetLocation[i]);
+		// ImageButton[] im = new ImageButton[9];
+
+		for (int i = 0; i < 9; i++) {
+			// m[i] = im_list.get(i);
+			// im[i].getLocationOnScreen(targetLocation[i]);
+			// MUST TEST ! ! !! !
+			im_list.get(i).getLocationOnScreen(targetLocation[i]);
 		}
 	}
-	
-	public double distanceTo(float x, float y) {
-		switch(pos){
-		case 1: im_list.
-		
-		
-		}
-		
-		
-        double dx = a.x - b.x;
-        double dy = a.y - b.y;
-        distance = Math.sqrt(dx*dx + dy*dy);
-        return distance;
-    }
+
 }
