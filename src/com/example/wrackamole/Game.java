@@ -148,22 +148,23 @@ public class Game extends Activity {
 	public void startTimer() {
 		// Timer
 		cdt = new CountDownTimer(30000, 1000) {
+			boolean flag = false;
 
 			public void onTick(long millisUntilFinished) {
 				tvTime.setText("seconds remaining: " + millisUntilFinished
 						/ 1000);
 				duration = 30 - (int) millisUntilFinished / 1000;
-				boolean flag = false;
 
 				if (millisUntilFinished < 30000 && !flag) {
-					getTargetLocation();
-					for (int i = 0; i < 9; i++) {
-						Toast.makeText(
-								Game.this,
-								"" + targetLocation[i][0] + " "
-										+ targetLocation[i][1], 500).show();
-					}
 					flag = true;
+					getTargetLocation();
+			//		for (int i = 0; i < 9; i++) {
+			//			Toast.makeText(
+			//					Game.this,
+			//					"" + targetLocation[i][0] + " "
+			//							+ targetLocation[i][1], 500).show();
+			//		}
+
 				}
 			}
 
@@ -376,8 +377,8 @@ public class Game extends Activity {
 		 */
 
 		float distance = (float) Math
-				.sqrt((targetLocation[sequence.get(pos)][1] - event.getY())
-						+ (targetLocation[sequence.get(pos)][0] - event.getX()));
+				.sqrt((Math.pow(targetLocation[sequence.get(pos)][1] - event.getY(), 2))
+						+ (Math.pow(targetLocation[sequence.get(pos)][0] - event.getX(), 2)));
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
@@ -390,7 +391,7 @@ public class Game extends Activity {
 			Toast.makeText(
 					this,
 					"X is " + event.getX() + "Y is " + event.getY()
-							+ "Pressure is " + event.getPressure(),
+							+ "Pressure is " + event.getPressure() +"\n Distance Is : "+ distance,
 					Toast.LENGTH_LONG).show();
 
 			// case MotionEvent.ACTION_MOVE:
