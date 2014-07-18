@@ -2,7 +2,6 @@ package com.example.wrackamole;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,11 +24,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String KEY_START = "start_time";
 	private static final String KEY_END = "end_time";
 	private static final String KEY_DATE = "date";
-	private static final String KEY_GAMEID = "gameids";
+	private static final String KEY_GAMEID = "gameid";
 	private static final String KEY_TARGET_POSX = "target_x";
 	private static final String KEY_TARGET_POSY = "target_y";
 	private static final String KEY_USER_POSX = "user_x";
 	private static final String KEY_USER_POSY = "user_y";
+	private static final String KEY_SIZE = "size";
 	private static final String KEY_DELTA = "delta";
 	private static final String KEY_USER_PRESSURE = "pressure";
 
@@ -49,8 +49,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ "gameid INTEGER PRIMARY KEY AUTOINCREMENT, userid INTEGER, score INTEGER, level INTEGER, duration INTEGER, sequence STRING, start_time DATETIME, end_time DATETIME DEFAULT CURRENT_TIME, date DATETIME DEFAULT CURRENT_DATE  )";
 
 		String CREATE_ONCLICK_TABLE = "CREATE TABLE click ( "
-				+ "gameid INTEGER, target_x FLOAT, target_y FLOAT, user_x FLOAT, user_y FLOAT, delta FLOAT, pressure FLOAT)";
-		// execute creating table
+				+ "gameid INTEGER, target_x DOUBLE, target_y DOUBLE, user_x DOUBLE, user_y DOUBLE, delta DOUBLE, size DOUBLE, pressure DOUBLE)";
+		// execute creating table 
 		db.execSQL(CREATE_USERNAME_TABLE);
 		db.execSQL(CREATE_RESULT_TABLE);
 		db.execSQL(CREATE_ONCLICK_TABLE);
@@ -157,8 +157,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	// public void ressultRec(String username, int score, int level, int
 	// duration, String seq, String startTime, String endTime, String date) {
-	public long ressultRec(String username, int score, int level, int duration,
-			String seq) {
+	public long resultRec(String username, int score, int level, int duration,
+			String seq, String startTime) {
 		db = this.getWritableDatabase();
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
@@ -172,9 +172,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		values.put(KEY_LEVEL, level);
 		values.put(KEY_DURATION, duration);
 		values.put(KEY_SEQUENCE, seq);
-		// values.put(KEY_START, startTime);
-		// values.put(KEY_END, endTime);
-		// values.put(KEY_DATE, date);
+		values.put(KEY_START, startTime);
+
 
 		// execute insertion
 		return db.insert(TABLE_RESULT, null, values);
@@ -191,8 +190,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			values.put(KEY_USER_POSX, pointing.get(i)[2]);
 			values.put(KEY_USER_POSY, pointing.get(i)[3]);
 			values.put(KEY_USER_PRESSURE, pointing.get(i)[4]);
-			values.put(KEY_DELTA, pointing.get(i)[5]);
-			db.insert(TABLE_ONCLICK, null, values);
+			values.put(KEY_SIZE, pointing.get(i)[5]);
+			values.put(KEY_DELTA, pointing.get(i)[6]);
+					
+			db.insert("click", null, values);
 		}
 	}
 

@@ -310,8 +310,8 @@ int id textView2 0x7f050040
 int id title 0x7f05002b
 int id top_action_bar 0x7f050020
 int id tvDuration 0x7f050051
-int id tvScore 0x7f050052
-int id tvUsername 0x7f050053
+int id tvScore 0x7f050053
+int id tvUsername 0x7f050052
 int id tv_digitSymKey 0x7f050049
 int id tv_instruction 0x7f05004b
 int id tv_latest_sc 0x7f05005d

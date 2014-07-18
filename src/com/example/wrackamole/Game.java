@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -278,13 +277,14 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						long i = db.ressultRec(username, score, level,
+						long i = db.resultRec(username, score, level,
 								duration, sequence.toString());
 						if (i != -1) {
 							db.posRec(i, pointing);
-							Toast.makeText(Game.this,
-									"Your score has been recorded: " + i,
-									Toast.LENGTH_LONG).show();
+								Toast.makeText(Game.this,
+										"Your score has been recorded: " + i,
+										Toast.LENGTH_LONG).show();
+							
 						} else {
 							Toast.makeText(
 									Game.this,

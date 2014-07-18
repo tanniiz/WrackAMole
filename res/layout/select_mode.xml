@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <Button
-        android:id="@+id/bt_easy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp"
-        android:text="Easy Mode" />
-
-    <Button
-        android:id="@+id/bt_hard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bt_easy"
-        android:layout_below="@+id/bt_easy"
-        android:layout_marginTop="98dp"
-        android:text="Hard Mode" />
+    android:layout_height="match_parent" 
+    android:background="@drawable/gradient" >
 
     <Button
         android:id="@+id/im_table"
-        android:layout_width="wrap_content"
+        android:layout_width="600px"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Main Menu" />
+        android:layout_marginBottom="238dp"
+        android:background="@drawable/button"
+        android:text="Main Menu"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/bt_easy"
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bt_hard"
+        android:layout_alignLeft="@+id/im_table"
+        android:layout_marginBottom="138dp"
+        android:background="@drawable/button"
+        android:text="Easy Mode"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/bt_hard"
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/im_table"
+        android:layout_alignLeft="@+id/bt_easy"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/button"
+        android:text="Hard Mode"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

@@ -17,16 +17,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvDuration"
-        android:layout_alignLeft="@+id/tvDuration"
-        android:layout_marginBottom="32dp"
-        android:text="Score :"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +24,16 @@
         android:layout_alignLeft="@+id/tvScore"
         android:layout_marginBottom="14dp"
         android:text="Username :"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvDuration"
+        android:layout_alignLeft="@+id/tvDuration"
+        android:layout_marginBottom="42dp"
+        android:text="Score :"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
