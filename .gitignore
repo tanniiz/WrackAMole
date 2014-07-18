@@ -153,3 +153,7 @@ bin/WrackAMole.apk
 *.class
 
 *.txt
+
+*.dex
+
+*.class
