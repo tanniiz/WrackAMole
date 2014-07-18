@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -47,8 +49,10 @@ public class Game extends Activity {
 	int level = 0;
 	int pos = 0;
 	int score = 0;
-	Calendar calendar;
-
+	Calendar calendar = Calendar.getInstance();
+	SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+	String startTime;
+	String stopTime;
 	// USE THIS TO CHECK FOR LOCATION JUST ONCE
 	// SHOULD BE FIX AFTER THIS
 	boolean flag = false;
@@ -253,6 +257,10 @@ public class Game extends Activity {
 	// End
 	public void end() {
 		// Dialog properties
+
+		// Get stop Time
+
+		stopTime = dateFormat.format(calendar.getTime());
 		LayoutInflater li = LayoutInflater.from(this);
 		View prompt = li.inflate(R.layout.result, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -273,19 +281,16 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-<<<<<<< HEAD
-						long i = db.resultRec(username, score, level,
-								duration, sequence.toString());
-=======
-						long i = db.ressultRec(username, score, level,
-								duration, sequence.toString(), calendar.getTime());
->>>>>>> FETCH_HEAD
+
+						long i = db.resultRec(username, score, level, duration,
+								sequence.toString(), startTime, stopTime);
+
 						if (i != -1) {
 							db.posRec(i, pointing);
-								Toast.makeText(Game.this,
-										"Your score has been recorded: " + i,
-										Toast.LENGTH_LONG).show();
-							
+							Toast.makeText(Game.this,
+									"Your score has been recorded: " + i,
+									Toast.LENGTH_LONG).show();
+
 						} else {
 							Toast.makeText(
 									Game.this,
@@ -315,10 +320,8 @@ public class Game extends Activity {
 				+ "\n This is an instruction .....");
 		alertDialogBuilder.setTitle("Instruction");
 
-		
-		//Get current time
-		calendar = Calendar.getInstance();
-		
+		// Get current time
+
 		// Dismiss dialog when click cancel
 		alertDialogBuilder.setNegativeButton("OKAY",
 				new DialogInterface.OnClickListener() {
@@ -328,6 +331,8 @@ public class Game extends Activity {
 						// Shuffle sequence
 						shuffleSequence();
 
+						// Get Current Time
+						startTime = dateFormat.format(calendar.getTime());
 						// Show board
 						shuffleBoard();
 
@@ -417,8 +422,8 @@ public class Game extends Activity {
 			// SIZE, DISTANCE]
 			pointing.add(new float[] { targetX, targetY, userX, userY,
 					event.getPressure(), event.getSize(), distance });
-			
-			//DEBUGGING
+
+			// DEBUGGING
 			// Toast.makeText(
 			// this,
 			// "X is " + userX + "Y is " + userY + "Pressure is "
