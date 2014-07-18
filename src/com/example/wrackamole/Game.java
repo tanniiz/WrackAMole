@@ -390,10 +390,10 @@ public class Game extends Activity {
 		// Math.sqrt((y2-y1) + (x2-x1))
 		// loop im_list , seek for the current button that == to sequence pos
 		// if yes get it's x y from targetlocation[][], calculate distance
-		double targetX;
-		double targetY;
-		double userX = 0;
-		double userY = 0;
+		float targetX = 0;
+		float targetY = 0;
+		float userX = 0;
+		float userY = 0;
 
 		float distance = 0;
 
@@ -413,10 +413,8 @@ public class Game extends Activity {
 		case MotionEvent.ACTION_DOWN:
 			// FLOAT[TARGET X, TARGET Y, USERINPUT X, USERINPUT Y, PRESSURE,
 			// SIZE, DISTANCE]
-			// pointing.add(new float[] {
-			// targetLocation[sequence.get(pos) - 1][0],
-			// targetLocation[sequence.get(pos) - 1][1], event.getX(),
-			// event.getY(), event.getPressure(),event.getSize(), distance });
+			pointing.add(new float[] { targetX, targetY, userX, userY,
+					event.getPressure(), event.getSize(), distance });
 
 			Toast.makeText(
 					this,
