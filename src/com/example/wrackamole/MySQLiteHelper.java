@@ -23,7 +23,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String KEY_SEQUENCE = "sequence";
 	private static final String KEY_START = "start_time";
 	private static final String KEY_END = "end_time";
-	private static final String KEY_DATE = "date";
 	private static final String KEY_GAMEID = "gameid";
 	private static final String KEY_TARGET_POSX = "target_x";
 	private static final String KEY_TARGET_POSY = "target_y";
@@ -46,7 +45,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ "userid INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ "username VARCHAR )";
 		String CREATE_RESULT_TABLE = "CREATE TABLE result ( "
-				+ "gameid INTEGER PRIMARY KEY AUTOINCREMENT, userid INTEGER, score INTEGER, level INTEGER, duration INTEGER, sequence STRING, start_time DATETIME, end_time DATETIME DEFAULT CURRENT_TIME, date DATETIME DEFAULT CURRENT_DATE  )";
+				+ "gameid INTEGER PRIMARY KEY AUTOINCREMENT, userid INTEGER, score INTEGER, level INTEGER, duration INTEGER, sequence STRING, start_time DATETIME, end_time DATETIME, date DATETIME DEFAULT CURRENT_DATE  )";
 
 		String CREATE_ONCLICK_TABLE = "CREATE TABLE click ( "
 				+ "gameid INTEGER, target_x DOUBLE, target_y DOUBLE, user_x DOUBLE, user_y DOUBLE, delta DOUBLE, size DOUBLE, pressure DOUBLE)";
@@ -155,10 +154,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		return user;
 	}
 
-	// public void ressultRec(String username, int score, int level, int
-	// duration, String seq, String startTime, String endTime, String date) {
 	public long resultRec(String username, int score, int level, int duration,
-			String seq, String startTime, String stopTime) {
+			String seq, String startTime, String endTime) {
+
 		db = this.getWritableDatabase();
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
@@ -173,6 +171,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		values.put(KEY_DURATION, duration);
 		values.put(KEY_SEQUENCE, seq);
 		values.put(KEY_START, startTime);
+		values.put(KEY_END, endTime);
 
 
 		// execute insertion
@@ -193,7 +192,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			values.put(KEY_SIZE, pointing.get(i)[5]);
 			values.put(KEY_DELTA, pointing.get(i)[6]);
 					
-			db.insert("click", null, values);
+			db.insert(TABLE_ONCLICK, null, values);
 		}
 	}
 
