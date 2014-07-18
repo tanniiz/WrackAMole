@@ -273,13 +273,9 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-<<<<<<< HEAD
 						long i = db.resultRec(username, score, level,
-								duration, sequence.toString());
-=======
-						long i = db.ressultRec(username, score, level,
-								duration, sequence.toString(), calendar.getTime());
->>>>>>> FETCH_HEAD
+								duration, sequence.toString(), calendar.getTime() + "");
+
 						if (i != -1) {
 							db.posRec(i, pointing);
 								Toast.makeText(Game.this,

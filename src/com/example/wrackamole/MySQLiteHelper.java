@@ -158,7 +158,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	// public void ressultRec(String username, int score, int level, int
 	// duration, String seq, String startTime, String endTime, String date) {
 	public long resultRec(String username, int score, int level, int duration,
-			String seq, String startTime) {
+			String seq, String startTime, String endTime) {
 		db = this.getWritableDatabase();
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
@@ -173,6 +173,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		values.put(KEY_DURATION, duration);
 		values.put(KEY_SEQUENCE, seq);
 		values.put(KEY_START, startTime);
+		values.put(KEY_START, endTime);
 
 
 		// execute insertion
