@@ -21,6 +21,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,7 +30,7 @@ public class Game extends Activity {
 
 	MySQLiteHelper db;
 
-	// Components
+	// Variable
 	CountDownTimer cdt;
 	String username;
 	TextView greeting;
@@ -37,23 +38,34 @@ public class Game extends Activity {
 	TextView tvScore;
 	TextView tvSequence;
 	Button btSignOut;
-	Button btplayPause;
+	Button btPause;
 	TableLayout im_table;
 	TableLayout lg_table;
 	int[][] targetLocation = new int[9][2];
 	int duration;
-	Handler _h = new Handler();
+	long time = 30000;
+	int level = 0;
+	int pos = 0;
+	int score = 0;
+
+	// USE THIS TO CHECK FOR LOCATION JUST ONCE
+	// SHOULD BE FIX AFTER THIS
+	boolean flag = false;
+
 	ArrayList<float[]> pointing = new ArrayList<float[]>();
 
 	ArrayList<ImageButton> im_list = new ArrayList<ImageButton>();
 
+	// INSERT PICTURE FOR LEGENDS HERE
 	Integer[] legends = new Integer[] { Color.BLACK, Color.BLUE, Color.GREEN,
 			Color.MAGENTA, Color.RED, Color.YELLOW, Color.LTGRAY, Color.GRAY,
 			Color.CYAN };
-	int[] drawable = new int[] { R.drawable.wrack1, R.drawable.wrack2,
-			R.drawable.wrack3, R.drawable.wrack4, R.drawable.wrack5,
-			R.drawable.wrack6, R.drawable.wrack7, R.drawable.wrack8,
-			R.drawable.wrack9 };
+
+	// INSERT PICTURE HERE
+	// int[] drawable = new int[] { R.drawable.wrack1, R.drawable.wrack2,
+	// R.drawable.wrack3, R.drawable.wrack4, R.drawable.wrack5,
+	// R.drawable.wrack6, R.drawable.wrack7, R.drawable.wrack8,
+	// R.drawable.wrack9 };
 
 	TableRow.LayoutParams bo_params = new TableRow.LayoutParams();
 	TableRow.LayoutParams lg_params = new TableRow.LayoutParams();
@@ -69,49 +81,6 @@ public class Game extends Activity {
 			add(7);
 			add(8);
 			add(9);
-		}
-	};
-	int level = 0;
-	int pos = 0;
-	int time = 5;
-	int score = 0;
-
-	// OnClickPrivate
-	private View.OnClickListener imgButtonOnClicklistener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// Toast.makeText(Game.this, v.getId() + "",
-			// Toast.LENGTH_LONG).show();
-			switch (v.getId()) {
-			case 1:
-				isCorrect(1);
-				break;
-			case 2:
-				isCorrect(2);
-				break;
-			case 3:
-				isCorrect(3);
-				break;
-			case 4:
-				isCorrect(4);
-				break;
-			case 5:
-				isCorrect(5);
-				break;
-			case 6:
-				isCorrect(6);
-				break;
-			case 7:
-				isCorrect(7);
-				break;
-			case 8:
-				isCorrect(8);
-				break;
-			case 9:
-				isCorrect(9);
-			}
-
 		}
 	};
 
@@ -139,7 +108,49 @@ public class Game extends Activity {
 		tvScore = (TextView) findViewById(R.id.tv_score);
 		tvSequence = (TextView) findViewById(R.id.tv_sequence);
 		btSignOut = (Button) findViewById(R.id.bt_signOut);
-		btplayPause = (Button) findViewById(R.id.bt_playPause);
+		btSignOut.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				im_table.setVisibility(View.INVISIBLE);
+				tvSequence.setVisibility(View.INVISIBLE);
+				lg_table.setVisibility(View.INVISIBLE);
+				cdt.cancel();
+				AlertDialog alertDialog = new AlertDialog.Builder(Game.this)
+						.create();
+				alertDialog.setMessage("Are you sure?");
+				alertDialog.setButton2("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Intent login = new Intent(Game.this,
+										MainActivity.class);
+								// Closing main menu and return to login
+								startActivity(login);
+								finish();
+							}
+						});
+
+				alertDialog.setButton("No",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								im_table.setVisibility(View.VISIBLE);
+								tvSequence.setVisibility(View.VISIBLE);
+								lg_table.setVisibility(View.VISIBLE);
+								startTimer();
+							}
+						});
+				alertDialog.show();
+
+			}
+		});
+		btPause = (Button) findViewById(R.id.bt_playPause);
+		btPause.setOnClickListener(new View.OnClickListener() {
+			// PausePlay button listener
+			@Override
+			public void onClick(View v) {
+				pause();
+			}
+		});
 		im_table = (TableLayout) findViewById(R.id.im_table);
 		lg_table = (TableLayout) findViewById(R.id.lg_table);
 
@@ -147,23 +158,22 @@ public class Game extends Activity {
 
 	public void startTimer() {
 		// Timer
-		cdt = new CountDownTimer(30000, 1000) {
-			boolean flag = false;
+		cdt = new CountDownTimer(time, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 				tvTime.setText("seconds remaining: " + millisUntilFinished
 						/ 1000);
 				duration = 30 - (int) millisUntilFinished / 1000;
-
+				time = millisUntilFinished;
 				if (millisUntilFinished < 30000 && !flag) {
 					flag = true;
 					getTargetLocation();
-			//		for (int i = 0; i < 9; i++) {
-			//			Toast.makeText(
-			//					Game.this,
-			//					"" + targetLocation[i][0] + " "
-			//							+ targetLocation[i][1], 500).show();
-			//		}
+					// for (int i = 0; i < 9; i++) {
+					// Toast.makeText(
+					// Game.this,
+					// "" + targetLocation[i][0] + " "
+					// + targetLocation[i][1], 500).show();
+					// }
 
 				}
 			}
@@ -196,13 +206,19 @@ public class Game extends Activity {
 			temp.setTag(z + 1);
 			temp.setId(z + 1);
 			temp.setLayoutParams(bo_params);
-			temp.setOnClickListener(imgButtonOnClicklistener);
 			temp.setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
 					onTouchEvent(event);
 					return false;
+				}
+			});
+			temp.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					isCorrect(v.getId());
 				}
 			});
 			im_list.add(temp);
@@ -215,8 +231,6 @@ public class Game extends Activity {
 			}
 			im_table.addView(temp);
 		}
-		im_table.requestLayout();
-
 	}
 
 	// Check input
@@ -225,7 +239,9 @@ public class Game extends Activity {
 			pos++;
 			score += 1;
 			tvScore.setText("Score : " + score);
-			shuffleBoard();
+			if (level == 1) {
+				shuffleBoard();
+			}
 			if (pos == 9) {
 				cdt.cancel();
 				end();
@@ -371,34 +387,45 @@ public class Game extends Activity {
 	// On touch
 	public boolean onTouchEvent(MotionEvent event) {
 		// Calculate the distance from user input to the center of the target
-		/*
-		 * Math.sqrt((y2-y1) + (x2-x1)) targetLocation[sequence.get(pos)][0];
-		 * targetLocation[sequence.get(pos)][1]; int x = (int) event.getX(); int
-		 * y = (int) event.getY();
-		 */
+		// Math.sqrt((y2-y1) + (x2-x1))
+		// loop im_list , seek for the current button that == to sequence pos
+		// if yes get it's x y from targetlocation[][], calculate distance
+		float targetX = 0;
+		float targetY = 0;
+		float userX = 0;
+		float userY = 0;
 
-		float distance = (float) Math
-				.sqrt((Math.pow(targetLocation[sequence.get(pos)][1] - event.getY(), 2))
-						+ (Math.pow(targetLocation[sequence.get(pos)][0] - event.getX(), 2)));
+		float distance = 0;
 
+		for (int i = 0; i < im_list.size(); i++) {
+			if (im_list.get(i).getId() == sequence.get(pos)) {
+				targetX = targetLocation[i][0];
+				targetY = targetLocation[i][1];
+
+				userX = event.getRawX();
+				userY = event.getRawY();
+
+				distance = (float) Math.sqrt(Math.pow(targetY - userY, 2)
+						+ Math.pow(targetX - userX, 2));
+			}
+		}
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			// FLOAT[TARGET X, TARGET y, USERINPUT X, USERINPUT Y, PRESSURE,
-			// DISTANCE]
-			pointing.add(new float[] { targetLocation[sequence.get(pos)][0],
-					targetLocation[sequence.get(pos)][1], event.getX(),
-					event.getY(), event.getPressure(), distance });
+			// FLOAT[TARGET X, TARGET Y, USERINPUT X, USERINPUT Y, PRESSURE,
+			// SIZE, DISTANCE]
+			pointing.add(new float[] { targetX, targetY, userX, userY,
+					event.getPressure(), event.getSize(), distance });
 
 			Toast.makeText(
 					this,
-					"X is " + event.getX() + "Y is " + event.getY()
-							+ "Pressure is " + event.getPressure() +"\n Distance Is : "+ distance,
+					"X is " + userX + "Y is " + userY + "Pressure is "
+							+ event.getPressure() + "Size is "
+							+ event.getSize() + "\n Distance Is : " + distance,
 					Toast.LENGTH_LONG).show();
 
 			// case MotionEvent.ACTION_MOVE:
 			// case MotionEvent.ACTION_UP:
 		}
-
 		return false;
 	}
 
@@ -412,14 +439,32 @@ public class Game extends Activity {
 
 	// Get target position
 	public void getTargetLocation() {
-		// ImageButton[] im = new ImageButton[9];
-
 		for (int i = 0; i < 9; i++) {
-			// m[i] = im_list.get(i);
-			// im[i].getLocationOnScreen(targetLocation[i]);
-			// MUST TEST ! ! !! !
 			im_list.get(i).getLocationOnScreen(targetLocation[i]);
 		}
 	}
 
+	// Pasue and play method
+	// Make new CountDownTimer everytime with time remaining
+	public void pause() {
+
+		im_table.setVisibility(View.INVISIBLE);
+		tvSequence.setVisibility(View.INVISIBLE);
+		lg_table.setVisibility(View.INVISIBLE);
+		cdt.cancel();
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		// alertDialog.setTitle("PAUSE");
+		alertDialog.setMessage("GAME IS PAUSE");
+		alertDialog.setButton("Continue",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						im_table.setVisibility(View.VISIBLE);
+						tvSequence.setVisibility(View.VISIBLE);
+						lg_table.setVisibility(View.VISIBLE);
+						startTimer();
+					}
+				});
+		alertDialog.show();
+
+	}
 }
