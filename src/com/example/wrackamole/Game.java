@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -281,14 +280,8 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-<<<<<<< HEAD
-						long i = db.resultRec(username, score, level,
-								duration, sequence.toString(), calendar.getTime() + "");
-=======
-
 						long i = db.resultRec(username, score, level, duration,
 								sequence.toString(), startTime, stopTime);
->>>>>>> FETCH_HEAD
 
 						if (i != -1) {
 							db.posRec(i, pointing);
