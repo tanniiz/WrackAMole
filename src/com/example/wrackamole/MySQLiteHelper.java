@@ -158,7 +158,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	// public void ressultRec(String username, int score, int level, int
 	// duration, String seq, String startTime, String endTime, String date) {
 	public long resultRec(String username, int score, int level, int duration,
+<<<<<<< HEAD
 			String seq, String startTime, String endTime) {
+=======
+			String seq, String startTime, String stopTime) {
+>>>>>>> FETCH_HEAD
 		db = this.getWritableDatabase();
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
