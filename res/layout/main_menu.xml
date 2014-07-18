@@ -2,43 +2,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
-
-    <Button
-        android:id="@+id/bt_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
-        android:text="Start Game" />
+    tools:context="${relativePackage}.${activityClass}"
+    android:background="@drawable/gradient" >
 
     <Button
         android:id="@+id/bt_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bt_start"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="Score" />
+        android:layout_width="600px"
+        android:layout_height="50px"
+        android:layout_alignLeft="@+id/bt_start"
+        android:layout_centerVertical="true"
+        android:background="@drawable/button"
+        android:text="Score"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/bt_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="600px"
+        android:layout_height="50px"
+        android:layout_alignLeft="@+id/bt_score"
         android:layout_below="@+id/bt_score"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/button"
+        android:text="Log Out"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/bt_start"
+        android:layout_width="600px"
+        android:layout_height="50px"
+        android:layout_above="@+id/bt_score"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="Log Out" />
+        android:layout_marginBottom="72dp"
+        android:background="@drawable/button"
+        android:text="Start Game"
+        android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/txtHi"
+        android:id="@+id/participant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="22dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="PARTICIPANT: "
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

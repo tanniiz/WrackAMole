@@ -16,12 +16,12 @@ public class MainMenu extends Activity {
 		final Button btStart = (Button)findViewById(R.id.bt_start);
 		final Button btScore = (Button)findViewById(R.id.bt_score);
 		final Button btLogout = (Button)findViewById(R.id.bt_logout);
-		final TextView txtHi = (TextView)findViewById(R.id.txtHi);
+		final TextView participant = (TextView)findViewById(R.id.participant);
 		
 		 // Receiving the data
 		Intent i = getIntent();
 	    final String username = i.getStringExtra("username");
-	    txtHi.setText("Welcome, " + username);
+	    participant.setText("PARTICIPANT: " + username);
 	    
 	    btStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
