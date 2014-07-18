@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 
 public class Game extends Activity {
@@ -47,6 +48,7 @@ public class Game extends Activity {
 	int level = 0;
 	int pos = 0;
 	int score = 0;
+	Calendar calendar;
 
 	// USE THIS TO CHECK FOR LOCATION JUST ONCE
 	// SHOULD BE FIX AFTER THIS
@@ -168,17 +170,11 @@ public class Game extends Activity {
 				if (millisUntilFinished < 30000 && !flag) {
 					flag = true;
 					getTargetLocation();
-					// for (int i = 0; i < 9; i++) {
-					// Toast.makeText(
-					// Game.this,
-					// "" + targetLocation[i][0] + " "
-					// + targetLocation[i][1], 500).show();
-					// }
-
 				}
 			}
 
 			public void onFinish() {
+
 				tvTime.setText("seconds remaining: 0");
 				end();
 			}
@@ -279,7 +275,7 @@ public class Game extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						long i = db.ressultRec(username, score, level,
-								duration, sequence.toString());
+								duration, sequence.toString(), calendar.getTime());
 						if (i != -1) {
 							db.posRec(i, pointing);
 							Toast.makeText(Game.this,
@@ -314,6 +310,10 @@ public class Game extends Activity {
 				+ "\n This is an instruction .....");
 		alertDialogBuilder.setTitle("Instruction");
 
+		
+		//Get current time
+		calendar = Calendar.getInstance();
+		
 		// Dismiss dialog when click cancel
 		alertDialogBuilder.setNegativeButton("OKAY",
 				new DialogInterface.OnClickListener() {
@@ -325,9 +325,6 @@ public class Game extends Activity {
 
 						// Show board
 						shuffleBoard();
-
-						// Get Target Location
-						// getTargetLocation();
 
 						// Show Username
 						greeting.setText("Welcome, " + username);
@@ -415,13 +412,14 @@ public class Game extends Activity {
 			// SIZE, DISTANCE]
 			pointing.add(new float[] { targetX, targetY, userX, userY,
 					event.getPressure(), event.getSize(), distance });
-
-			Toast.makeText(
-					this,
-					"X is " + userX + "Y is " + userY + "Pressure is "
-							+ event.getPressure() + "Size is "
-							+ event.getSize() + "\n Distance Is : " + distance,
-					Toast.LENGTH_LONG).show();
+			
+			//DEBUGGING
+			// Toast.makeText(
+			// this,
+			// "X is " + userX + "Y is " + userY + "Pressure is "
+			// + event.getPressure() + "Size is "
+			// + event.getSize() + "\n Distance Is : " + distance,
+			// Toast.LENGTH_LONG).show();
 
 			// case MotionEvent.ACTION_MOVE:
 			// case MotionEvent.ACTION_UP:
@@ -453,7 +451,6 @@ public class Game extends Activity {
 		lg_table.setVisibility(View.INVISIBLE);
 		cdt.cancel();
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		// alertDialog.setTitle("PAUSE");
 		alertDialog.setMessage("GAME IS PAUSE");
 		alertDialog.setButton("Continue",
 				new DialogInterface.OnClickListener() {
