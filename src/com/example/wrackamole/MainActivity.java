@@ -1,5 +1,6 @@
 package com.example.wrackamole;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ public class MainActivity extends Activity {
 		btLogin = (Button) findViewById(R.id.bt_login);
 		btReg = (Button) findViewById(R.id.bt_reg);
 		db = new MySQLiteHelper(this);
-
+		
 		// Adding action to login button
 		btLogin.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
