@@ -16,7 +16,8 @@ public class MainMenu extends Activity {
 		final Button btStart = (Button)findViewById(R.id.bt_start);
 		final Button btScore = (Button)findViewById(R.id.bt_score);
 		final Button btLogout = (Button)findViewById(R.id.bt_logout);
-		final TextView participant = (TextView)findViewById(R.id.participant);
+		TextView participant = (TextView)findViewById(R.id.participant);
+		
 		
 		 // Receiving the data
 		Intent i = getIntent();

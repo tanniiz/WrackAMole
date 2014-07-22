@@ -10,9 +10,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -23,7 +27,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
+		ImageView imageview = (ImageView)findViewById(R.id.imageView1);         
+		final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+		animation.setDuration(500); // duration - half a second
+		animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+		animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+		animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in     
+		imageview.startAnimation(animation);
 		// Components
 		final EditText etUsername = (EditText) findViewById(R.id.et_username);
 		btLogin = (Button) findViewById(R.id.bt_login);

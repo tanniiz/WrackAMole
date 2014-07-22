@@ -102,7 +102,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		}
 		return false;
 	}
-
+	/*
+	 * Gathering User's score
+	 */
 	public List<User> getScore(String username) {
 		db = this.getWritableDatabase();
 
@@ -110,7 +112,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
 				+ " WHERE username=?", new String[] { username });
-
+		
+		// Get user's score order arrange in ascending order
 		if (cursor.moveToFirst()) {
 			int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
 			Cursor c = db.rawQuery("SELECT * FROM RESULT WHERE userid=" + id
@@ -131,7 +134,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		return userScore;
 	}
-
+	
+	/*
+	 * Gathering latest game score
+	 */
 	public User getLatestScore(String username) {
 		db = this.getWritableDatabase();
 		User user = new User();
@@ -153,17 +159,22 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		return user;
 	}
-
+	
+	/*
+	 * Result Recording
+	 */
 	public long resultRec(String username, int score, int level, int duration,
 			String seq, String startTime, String endTime) {
 
 		db = this.getWritableDatabase();
-
+		
+		// Searching for user's id from table user
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
 				+ " WHERE username=?", new String[] { username });
 		cursor.moveToFirst();
 		int id = cursor.getInt(cursor.getColumnIndex(KEY_USERID));
-
+		
+		// Container to contain result data
 		ContentValues values = new ContentValues();
 		values.put(KEY_USERID, id);
 		values.put(KEY_SCORE, score);
@@ -173,14 +184,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		values.put(KEY_START, startTime);
 		values.put(KEY_END, endTime);
 
-
 		// execute insertion
 		return db.insert(TABLE_RESULT, null, values);
 	}
-
+	
+	/*
+	 * Click Recording
+	 */
 	public void posRec(long gameId, ArrayList<float[]> pointing) {
 		db = this.getWritableDatabase();
-
+		
+		// Insertion click record
 		for(int i = 0 ; i < pointing.size() ; i++) {
 			ContentValues values = new ContentValues();
 			values.put(KEY_GAMEID, gameId);

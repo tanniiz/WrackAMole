@@ -2,9 +2,11 @@ package com.example.wrackamole;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class SelectMode extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +16,10 @@ public class SelectMode extends Activity {
 		Button btEasy = (Button)findViewById(R.id.bt_easy);
 		Button btHard = (Button)findViewById(R.id.bt_hard);
 		Button btBack = (Button)findViewById(R.id.im_table);
+		TextView tv = (TextView)findViewById(R.id.tv);
+		
+		tv.setTextSize(30.0f);
+		tv.setTypeface(null, Typeface.BOLD);
 		
 		Intent i = getIntent();
 	    // Receiving the data
