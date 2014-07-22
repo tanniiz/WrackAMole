@@ -235,6 +235,15 @@ int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable button 0x7f020057
 int drawable gradient 0x7f020058
 int drawable ic_launcher 0x7f020059
+int drawable mole1 0x7f02005a
+int drawable mole2 0x7f02005b
+int drawable mole3 0x7f02005c
+int drawable mole4 0x7f02005d
+int drawable mole5 0x7f02005e
+int drawable mole6 0x7f02005f
+int drawable mole7 0x7f020060
+int drawable mole8 0x7f020061
+int drawable mole9 0x7f020062
 int id RelativeLayout1 0x7f050050
 int id action_bar 0x7f05001c
 int id action_bar_activity_content 0x7f050015

@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -58,18 +60,18 @@ public class Game extends Activity {
 
 	ArrayList<float[]> pointing = new ArrayList<float[]>();
 
-	ArrayList<ImageButton> im_list = new ArrayList<ImageButton>();
+	ArrayList<ImageView> im_list = new ArrayList<ImageView>();
 
-	// INSERT PICTURE FOR LEGENDS HERE
-	Integer[] legends = new Integer[] { Color.BLACK, Color.BLUE, Color.GREEN,
-			Color.MAGENTA, Color.RED, Color.YELLOW, Color.LTGRAY, Color.GRAY,
-			Color.CYAN };
+	// INSERT COLOR
+	// Integer[] legends = new Integer[] { Color.BLACK, Color.BLUE, Color.GREEN,
+	// Color.MAGENTA, Color.RED, Color.YELLOW, Color.LTGRAY, Color.GRAY,
+	// Color.CYAN };
 
 	// INSERT PICTURE HERE
-	// int[] drawable = new int[] { R.drawable.wrack1, R.drawable.wrack2,
-	// R.drawable.wrack3, R.drawable.wrack4, R.drawable.wrack5,
-	// R.drawable.wrack6, R.drawable.wrack7, R.drawable.wrack8,
-	// R.drawable.wrack9 };
+	Integer[] drawable = new Integer[] { R.drawable.mole1, R.drawable.mole2,
+			R.drawable.mole3, R.drawable.mole4, R.drawable.mole5,
+			R.drawable.mole6, R.drawable.mole7, R.drawable.mole8,
+			R.drawable.mole9 };
 
 	TableRow.LayoutParams bo_params = new TableRow.LayoutParams();
 	TableRow.LayoutParams lg_params = new TableRow.LayoutParams();
@@ -92,11 +94,15 @@ public class Game extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
 		// Shuffle Color
-		Collections.shuffle(Arrays.asList(legends));
+		Collections.shuffle(Arrays.asList(drawable));
 
 		// Set Margins
 		bo_params.setMargins(50, 50, 50, 50);
+		// bo_params.width = 50;
+		// bo_params.height = 50;
 		lg_params.setMargins(20, 0, 20, 0);
+		lg_params.width = 50;
+		lg_params.height = 50;
 
 		// Greeting on top
 		Intent i = getIntent();
@@ -178,6 +184,7 @@ public class Game extends Activity {
 			public void onFinish() {
 
 				tvTime.setText("seconds remaining: 0");
+				duration++;
 				end();
 			}
 		}.start();
@@ -188,19 +195,20 @@ public class Game extends Activity {
 		Collections.shuffle(sequence);
 	}
 
-	// Shuffle the digit symbol
+	// Shuffle the board
 	public void shuffleBoard() {
 		im_table.removeAllViews();
 		im_list.clear();
 
 		for (int z = 0; z < 9; z++) {
-			ImageButton temp = new ImageButton(this);
+			ImageView temp = new ImageView(this);
 
 			// USE THIS STATEMENT IF WANT TO USE PICTURE
-			// temp.setImageResource(drawable[z]);
 			temp.setMinimumHeight(100);
 			temp.setMinimumWidth(100);
-			temp.setBackgroundColor(legends[z]);
+			// temp.setBackgroundColor(legends[z]);
+			temp.setImageResource(drawable[z]);
+
 			temp.setTag(z + 1);
 			temp.setId(z + 1);
 			temp.setLayoutParams(bo_params);
@@ -208,15 +216,31 @@ public class Game extends Activity {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN: {
+						if(isCorrect(v)){
+							v.setBackgroundColor(Color.GREEN);
+						}else{
+							v.setBackgroundColor(Color.RED);
+						}
+
+						break;
+					}
+					case MotionEvent.ACTION_UP: {
+						v.setBackgroundColor(Color.TRANSPARENT);
+						break;
+					}
+					}
 					onTouchEvent(event);
-					return false;
+					return true;
+
 				}
 			});
 			temp.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					isCorrect(v.getId());
+					isCorrect(v);
 				}
 			});
 			im_list.add(temp);
@@ -228,24 +252,30 @@ public class Game extends Activity {
 				temp.addView(im_list.get((y) + (i * 3)));
 			}
 			im_table.addView(temp);
+			im_table.startAnimation(new AnimationUtils().loadAnimation(this,
+					R.anim.abc_fade_in));
 		}
 	}
 
 	// Check input
-	public boolean isCorrect(int in) {
-		if (in == sequence.get(pos)) {
+	public boolean isCorrect(View v) {
+		ImageView pressed = (ImageView) v;
+		// Correct
+		if (pressed.getId() == sequence.get(pos)) {
 			pos++;
 			score += 1;
 			tvScore.setText("Score : " + score);
 			if (level == 1) {
 				shuffleBoard();
 			}
+			// End Game
 			if (pos == 9) {
 				cdt.cancel();
 				end();
 			}
 			return true;
 		} else {
+			// Incorrect
 			score -= 1;
 			tvScore.setText("Score : " + score);
 			return false;
@@ -364,10 +394,11 @@ public class Game extends Activity {
 		TableRow numRow = new TableRow(this);
 		TableRow colorRow = new TableRow(this);
 		for (int z = 0; z < 9; z++) {
-			ImageButton temp = new ImageButton(this);
+			ImageView temp = new ImageView(this);
 			temp.setMinimumHeight(50);
 			temp.setMinimumWidth(50);
-			temp.setBackgroundColor(legends[z]);
+			// temp.setBackgroundColor(legends[z]);
+			temp.setImageResource(drawable[z]);
 			temp.setTag(z + 11);
 			temp.setId(z + 11);
 			temp.setLayoutParams(lg_params);
