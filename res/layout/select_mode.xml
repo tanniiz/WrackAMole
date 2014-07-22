@@ -37,4 +37,15 @@
         android:text="Hard Mode"
         android:textColor="@android:color/white" />
 
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="43dp"
+        android:text="Please select a game level"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>

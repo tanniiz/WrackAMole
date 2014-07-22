@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -288,7 +289,6 @@ public class Game extends Activity {
 		// Dialog properties
 
 		// Get stop Time
-
 		stopTime = dateFormat.format(calendar.getTime());
 		LayoutInflater li = LayoutInflater.from(this);
 		View prompt = li.inflate(R.layout.result, null);
@@ -304,27 +304,29 @@ public class Game extends Activity {
 
 		tvDuration.setText("Duration : " + duration);
 		alertDialogBuilder.setTitle("Result");
+		
+		long i = db.resultRec(username, score, level, duration,
+				sequence.toString(), startTime, stopTime);
+
+		if (i != -1) {
+			db.posRec(i, pointing);
+			Toast.makeText(Game.this,
+					"Your score has been recorded: " + i,
+					Toast.LENGTH_LONG).show();
+
+		} else {
+			Toast.makeText(
+					Game.this,
+					"Problem occured while trying to record your score",
+					Toast.LENGTH_LONG).show();
+		}
 
 		// Dismiss dialog when click cancel
 		alertDialogBuilder.setNegativeButton("OKAY",
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						long i = db.resultRec(username, score, level, duration,
-								sequence.toString(), startTime, stopTime);
-
-						if (i != -1) {
-							db.posRec(i, pointing);
-							Toast.makeText(Game.this,
-									"Your score has been recorded: " + i,
-									Toast.LENGTH_LONG).show();
-
-						} else {
-							Toast.makeText(
-									Game.this,
-									"Problem occured while trying to record your score",
-									Toast.LENGTH_LONG).show();
-						}
+						
 						dialog.cancel();
 						Intent score = new Intent(Game.this, MainMenu.class);
 						score.putExtra("username", username);

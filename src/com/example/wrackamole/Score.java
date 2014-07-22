@@ -30,8 +30,8 @@ public class Score extends Activity{
 	    String username = i.getStringExtra("username");
 	    tvBar.setText(username + "'s Score:");
 	    
-	    //int latestScore = ;
-	    tvLatestScore.setText("Your latest score: " + db.getLatestScore(username).getScore() + " level: " + db.getLatestScore(username).getLevel());
+	    String lvl = db.getLatestScore(username).getLevel() == 0 ? "Easy" : "Hard";
+	    tvLatestScore.setText("Your latest score: " + db.getLatestScore(username).getScore() + " Difficulty: " + lvl);
 
 	    
 		// Getting list of Score
@@ -39,7 +39,8 @@ public class Score extends Activity{
 		List<User> sc = db.getScore(username);
 		if(!sc.isEmpty()) {
 			for(int j = 0 ; j < sc.size() && j < 5 ; j++) {
-				tvScore[j].setText("Score: " + sc.get(j).getScore() + " Level: " + sc.get(j).getLevel());
+				String dif = sc.get(j).getLevel() == 0 ? "Easy" : "Hard";
+				tvScore[j].setText("Score: " + sc.get(j).getScore() + " Difficulty: " + dif);
 			}
 		} else {
 			for(int j = 0 ; j < 5 ; j++) {

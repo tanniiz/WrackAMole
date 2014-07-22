@@ -15,28 +15,6 @@
         android:text="Score"
         android:textColor="@android:color/white" />
 
-    <Button
-        android:id="@+id/bt_logout"
-        android:layout_width="600px"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bt_score"
-        android:layout_below="@+id/bt_score"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/button"
-        android:text="Log Out"
-        android:textColor="@android:color/white" />
-
-    <Button
-        android:id="@+id/bt_start"
-        android:layout_width="600px"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bt_score"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
-        android:background="@drawable/button"
-        android:text="Start Game"
-        android:textColor="@android:color/white" />
-
     <TextView
         android:id="@+id/participant"
         android:layout_width="wrap_content"
@@ -48,5 +26,35 @@
         android:text="PARTICIPANT: "
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/black" />
+
+    	<Button
+    	    android:id="@+id/bt_start"
+    	    android:layout_width="600px"
+    	    android:layout_height="wrap_content"
+    	    android:layout_above="@+id/bt_score"
+    	    android:layout_centerHorizontal="true"
+    	    android:layout_marginBottom="123dp"
+    	    android:background="@drawable/button"
+    	    android:text="Start Game"
+    	    android:textColor="@android:color/white" />
+
+    	<Button
+    	    android:id="@+id/bt_logout"
+    	    android:layout_width="600px"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignLeft="@+id/bt_score"
+    	    android:layout_below="@+id/bt_score"
+    	    android:layout_marginTop="129dp"
+    	    android:background="@drawable/button"
+    	    android:text="Log Out"
+    	    android:textColor="@android:color/white" />
+    	
+    	<View
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="1dp"
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_below="@+id/participant"
+    	    android:layout_marginTop="17dp"
+    	    android:background="@android:color/holo_blue_dark" />
 
 </RelativeLayout>
