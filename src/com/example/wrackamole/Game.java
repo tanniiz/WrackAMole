@@ -51,7 +51,7 @@ public class Game extends Activity {
 	int level = 0;
 	int pos = 0;
 	int score = 0;
-	Calendar calendar = Calendar.getInstance();
+	Calendar calendar;
 	SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	String startTime;
 	String stopTime;
@@ -69,10 +69,10 @@ public class Game extends Activity {
 	// Color.CYAN };
 
 	// INSERT PICTURE HERE
-	Integer[] drawable = new Integer[] { R.drawable.mole1, R.drawable.mole2,
-			R.drawable.mole3, R.drawable.mole4, R.drawable.mole5,
-			R.drawable.mole6, R.drawable.mole7, R.drawable.mole8,
-			R.drawable.mole9 };
+	Integer[] drawable = new Integer[] { R.drawable.colouredmolesblue, R.drawable.colouredmolesgrey,
+			R.drawable.colouredmoleslime, R.drawable.colouredmolesorange, R.drawable.colouredmolespink,
+			R.drawable.colouredmolespurple, R.drawable.colouredmolesred, R.drawable.colouredmolesturquoise,
+			R.drawable.colouredmolesyellow };
 
 	TableRow.LayoutParams bo_params = new TableRow.LayoutParams();
 	TableRow.LayoutParams lg_params = new TableRow.LayoutParams();
@@ -99,8 +99,8 @@ public class Game extends Activity {
 
 		// Set Margins
 		bo_params.setMargins(50, 50, 50, 50);
-		// bo_params.width = 50;
-		// bo_params.height = 50;
+		 bo_params.width = 100;
+		 bo_params.height = 100;
 		lg_params.setMargins(20, 0, 20, 0);
 		lg_params.width = 50;
 		lg_params.height = 50;
@@ -208,6 +208,8 @@ public class Game extends Activity {
 			// USE THIS STATEMENT IF WANT TO USE PICTURE
 			temp.setMinimumHeight(100);
 			temp.setMinimumWidth(100);
+			temp.setMaxHeight(100);
+			temp.setMaxWidth(100);
 			// temp.setBackgroundColor(legends[z]);
 			temp.setImageResource(drawable[z]);
 
@@ -291,6 +293,7 @@ public class Game extends Activity {
 		// Dialog properties
 
 		// Get stop Time
+		calendar = Calendar.getInstance();
 		stopTime = dateFormat.format(calendar.getTime());
 		LayoutInflater li = LayoutInflater.from(this);
 		View prompt = li.inflate(R.layout.result, null);
@@ -362,6 +365,7 @@ public class Game extends Activity {
 						shuffleSequence();
 
 						// Get Current Time
+						calendar = Calendar.getInstance();
 						startTime = dateFormat.format(calendar.getTime());
 						// Show board
 						shuffleBoard();
@@ -399,6 +403,8 @@ public class Game extends Activity {
 			ImageView temp = new ImageView(this);
 			temp.setMinimumHeight(50);
 			temp.setMinimumWidth(50);
+			temp.setMaxHeight(50);
+			temp.setMaxWidth(50);
 			// temp.setBackgroundColor(legends[z]);
 			temp.setImageResource(drawable[z]);
 			temp.setTag(z + 11);
