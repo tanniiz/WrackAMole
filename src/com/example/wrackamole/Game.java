@@ -150,6 +150,7 @@ public class Game extends Activity {
 								startTimer();
 							}
 						});
+				alertDialog.setCanceledOnTouchOutside(false);
 				alertDialog.show();
 
 			}
@@ -219,9 +220,10 @@ public class Game extends Activity {
 				public boolean onTouch(View v, MotionEvent event) {
 					switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN: {
-						if(isCorrect(v)){
+						onTouchEvent(event);
+						if (isCorrect(v)) {
 							v.setBackgroundColor(Color.GREEN);
-						}else{
+						} else {
 							v.setBackgroundColor(Color.RED);
 						}
 
@@ -232,7 +234,7 @@ public class Game extends Activity {
 						break;
 					}
 					}
-					onTouchEvent(event);
+
 					return true;
 
 				}
@@ -304,19 +306,17 @@ public class Game extends Activity {
 
 		tvDuration.setText("Duration : " + duration);
 		alertDialogBuilder.setTitle("Result");
-		
+
 		long i = db.resultRec(username, score, level, duration,
 				sequence.toString(), startTime, stopTime);
 
 		if (i != -1) {
 			db.posRec(i, pointing);
-			Toast.makeText(Game.this,
-					"Your score has been recorded: " + i,
+			Toast.makeText(Game.this, "Your score has been recorded: " + i,
 					Toast.LENGTH_LONG).show();
 
 		} else {
-			Toast.makeText(
-					Game.this,
+			Toast.makeText(Game.this,
 					"Problem occured while trying to record your score",
 					Toast.LENGTH_LONG).show();
 		}
@@ -326,7 +326,7 @@ public class Game extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						
+
 						dialog.cancel();
 						Intent score = new Intent(Game.this, MainMenu.class);
 						score.putExtra("username", username);
@@ -334,7 +334,7 @@ public class Game extends Activity {
 						startActivity(score);
 					}
 				});
-
+		alertDialogBuilder.setCancelable(false);
 		alertDialogBuilder.show();
 	}
 
@@ -387,7 +387,7 @@ public class Game extends Activity {
 						dialog.cancel();
 					}
 				});
-
+		alertDialogBuilder.setCancelable(false);
 		alertDialogBuilder.show();
 
 	}
@@ -502,6 +502,7 @@ public class Game extends Activity {
 						startTimer();
 					}
 				});
+		alertDialog.setCanceledOnTouchOutside(false);
 		alertDialog.show();
 
 	}
