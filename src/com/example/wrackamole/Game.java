@@ -173,7 +173,7 @@ public class Game extends Activity {
 		cdt = new CountDownTimer(time, 1000) {
 
 			public void onTick(long millisUntilFinished) {
-				tvTime.setText("seconds remaining: " + millisUntilFinished
+				tvTime.setText("Time Remaining: " + millisUntilFinished
 						/ 1000);
 				duration = 30 - (int) millisUntilFinished / 1000;
 				time = millisUntilFinished;

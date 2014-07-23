@@ -4,38 +4,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient" >
 
-    <Button
-        android:id="@+id/bt_signOut"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/button"
-        android:textColor="@android:color/white"
-        android:text="SignOut" />
-
-    <Button
-        android:id="@+id/bt_playPause"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/bt_signOut"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/button"
-        android:textColor="@android:color/white"
-        android:text="Pause" />
-
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bt_signOut"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="19dp"
-        android:text="Name :"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
@@ -102,7 +70,53 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/tv_digitSymKey"
         android:layout_marginTop="51dp" >
-
     </TableLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/bt_signOut"
+        android:layout_marginLeft="27dp"
+        android:text="Name :"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/bt_signOut"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/bt_playPause"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:text="SignOut"
+        android:textColor="@android:color/white" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_blue_dark" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bt_signOut"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/holo_blue_dark" />
+
+    <Button
+        android:id="@+id/bt_playPause"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/bt_signOut"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/button"
+        android:text="Pause"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
