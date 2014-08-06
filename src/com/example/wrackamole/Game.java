@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.format.DateFormat;
@@ -58,7 +59,8 @@ public class Game extends Activity {
 	// USE THIS TO CHECK FOR LOCATION JUST ONCE
 	// SHOULD BE FIX AFTER THIS
 	boolean flag = false;
-
+	MediaPlayer correctSound;
+	MediaPlayer wrongSound;
 	ArrayList<float[]> pointing = new ArrayList<float[]>();
 
 	ArrayList<ImageView> im_list = new ArrayList<ImageView>();
@@ -94,6 +96,8 @@ public class Game extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
+		correctSound = MediaPlayer.create(this, R.raw.correct);
+		wrongSound = MediaPlayer.create(this, R.raw.wrong);
 		// Shuffle Color
 		Collections.shuffle(Arrays.asList(drawable));
 
@@ -222,6 +226,7 @@ public class Game extends Activity {
 				public boolean onTouch(View v, MotionEvent event) {
 					switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN: {
+						stopSound();
 						onTouchEvent(event);
 						if (isCorrect(v)) {
 							v.setBackgroundColor(Color.GREEN);
@@ -265,13 +270,15 @@ public class Game extends Activity {
 	// Check input
 	public boolean isCorrect(View v) {
 		ImageView pressed = (ImageView) v;
+		stopSound();
 		// Correct
 		if (pressed.getId() == sequence.get(pos)) {
 			pos++;
 			score += 1;
 			tvScore.setText("Score : " + score);
+			correctSound.start();
 			if (level == 1) {
-				shuffleBoard();
+				shuffleBoard();	
 			}
 			// End Game
 			if (pos == 9) {
@@ -283,6 +290,7 @@ public class Game extends Activity {
 			// Incorrect
 			score -= 1;
 			tvScore.setText("Score : " + score);
+			wrongSound.start();
 			return false;
 		}
 
@@ -511,5 +519,20 @@ public class Game extends Activity {
 		alertDialog.setCanceledOnTouchOutside(false);
 		alertDialog.show();
 
+	}
+	
+	public void stopSound() {
+		if (correctSound.isPlaying()) {
+			correctSound.stop();
+		} else {
+			correctSound.reset();
+			correctSound = MediaPlayer.create(Game.this, R.raw.correct);
+		}
+		if (wrongSound.isPlaying()) {
+			wrongSound.stop();
+		} else {
+			wrongSound.reset();
+			wrongSound = MediaPlayer.create(Game.this, R.raw.wrong);
+		}
 	}
 }
