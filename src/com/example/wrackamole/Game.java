@@ -37,11 +37,11 @@ public class Game extends Activity {
 
 	// Variable
 	CountDownTimer cdt;
+	CountDownTimer molecdt;
 	String username;
 	TextView greeting;
 	TextView tvTime;
 	TextView tvScore;
-	TextView tvSequence;
 	Button btSignOut;
 	Button btPause;
 	TableLayout im_table;
@@ -56,13 +56,13 @@ public class Game extends Activity {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	String startTime;
 	String stopTime;
+	int rand = 0;
 	// USE THIS TO CHECK FOR LOCATION JUST ONCE
 	// SHOULD BE FIX AFTER THIS
 	boolean flag = false;
 	MediaPlayer correctSound;
 	MediaPlayer wrongSound;
 	ArrayList<float[]> pointing = new ArrayList<float[]>();
-
 	ArrayList<ImageView> im_list = new ArrayList<ImageView>();
 
 	// INSERT COLOR
@@ -71,40 +71,27 @@ public class Game extends Activity {
 	// Color.CYAN };
 
 	// INSERT PICTURE HERE
-	Integer[] drawable = new Integer[] { R.drawable.colouredmolesblue, R.drawable.colouredmolesgrey,
-			R.drawable.colouredmoleslime, R.drawable.colouredmolesorange, R.drawable.colouredmolespink,
-			R.drawable.colouredmolespurple, R.drawable.colouredmolesred, R.drawable.colouredmolesturquoise,
-			R.drawable.colouredmolesyellow };
+	Integer[] drawable = new Integer[] { R.drawable.colouredmolesblue,
+			R.drawable.colouredmolesgrey, R.drawable.colouredmoleslime,
+			R.drawable.colouredmolesorange, R.drawable.colouredmolespink,
+			R.drawable.colouredmolespurple, R.drawable.colouredmolesred,
+			R.drawable.colouredmolesturquoise, R.drawable.colouredmolesyellow };
 
 	TableRow.LayoutParams bo_params = new TableRow.LayoutParams();
 	TableRow.LayoutParams lg_params = new TableRow.LayoutParams();
 
-	ArrayList<Integer> sequence = new ArrayList<Integer>() {
-		{
-			add(1);
-			add(2);
-			add(3);
-			add(4);
-			add(5);
-			add(6);
-			add(7);
-			add(8);
-			add(9);
-		}
-	};
-
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.game);
 		correctSound = MediaPlayer.create(this, R.raw.correct);
 		wrongSound = MediaPlayer.create(this, R.raw.wrong);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.game);
 		// Shuffle Color
 		Collections.shuffle(Arrays.asList(drawable));
 
 		// Set Margins
 		bo_params.setMargins(50, 50, 50, 50);
-		 bo_params.width = 100;
-		 bo_params.height = 100;
+		bo_params.width = 300;
+		bo_params.height = 300;
 		lg_params.setMargins(20, 0, 20, 0);
 		lg_params.width = 50;
 		lg_params.height = 50;
@@ -121,12 +108,10 @@ public class Game extends Activity {
 		greeting = (TextView) findViewById(R.id.tv_name);
 		tvTime = (TextView) findViewById(R.id.tv_time);
 		tvScore = (TextView) findViewById(R.id.tv_score);
-		tvSequence = (TextView) findViewById(R.id.tv_sequence);
 		btSignOut = (Button) findViewById(R.id.bt_signOut);
 		btSignOut.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				im_table.setVisibility(View.INVISIBLE);
-				tvSequence.setVisibility(View.INVISIBLE);
 				lg_table.setVisibility(View.INVISIBLE);
 				cdt.cancel();
 				AlertDialog alertDialog = new AlertDialog.Builder(Game.this)
@@ -140,6 +125,8 @@ public class Game extends Activity {
 										MainActivity.class);
 								// Closing main menu and return to login
 								startActivity(login);
+								cdt.cancel();
+								molecdt.cancel();
 								finish();
 							}
 						});
@@ -149,7 +136,7 @@ public class Game extends Activity {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								im_table.setVisibility(View.VISIBLE);
-								tvSequence.setVisibility(View.VISIBLE);
+
 								lg_table.setVisibility(View.VISIBLE);
 								startTimer();
 							}
@@ -177,8 +164,7 @@ public class Game extends Activity {
 		cdt = new CountDownTimer(time, 1000) {
 
 			public void onTick(long millisUntilFinished) {
-				tvTime.setText("Time Remaining: " + millisUntilFinished
-						/ 1000);
+				tvTime.setText("Time Remaining: " + millisUntilFinished / 1000);
 				duration = 30 - (int) millisUntilFinished / 1000;
 				time = millisUntilFinished;
 				if (millisUntilFinished < 30000 && !flag) {
@@ -192,104 +178,76 @@ public class Game extends Activity {
 				tvTime.setText("seconds remaining: 0");
 				duration++;
 				end();
+				molecdt.cancel();
 			}
 		}.start();
-	}
-
-	// Generate Sequence
-	public void shuffleSequence() {
-		Collections.shuffle(sequence);
 	}
 
 	// Shuffle the board
 	public void shuffleBoard() {
 		im_table.removeAllViews();
 		im_list.clear();
+		rand = (int) (Math.random() * 9);
 
-		for (int z = 0; z < 9; z++) {
-			ImageView temp = new ImageView(this);
+		ImageView temp = new ImageView(this);
 
-			// USE THIS STATEMENT IF WANT TO USE PICTURE
-			temp.setMinimumHeight(100);
-			temp.setMinimumWidth(100);
-			temp.setMaxHeight(100);
-			temp.setMaxWidth(100);
-			// temp.setBackgroundColor(legends[z]);
-			temp.setImageResource(drawable[z]);
+		// USE THIS STATEMENT IF WANT TO USE PICTURE
+		temp.setMinimumHeight(300);
+		temp.setMinimumWidth(300);
+		temp.setMaxHeight(300);
+		temp.setMaxWidth(300);
+		// temp.setBackgroundColor(legends[z]);
+		temp.setImageResource(drawable[rand]);
+		temp.setLayoutParams(bo_params);
+		im_list.add(temp);
 
-			temp.setTag(z + 1);
-			temp.setId(z + 1);
-			temp.setLayoutParams(bo_params);
-			temp.setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN: {
-						stopSound();
-						onTouchEvent(event);
-						if (isCorrect(v)) {
-							v.setBackgroundColor(Color.GREEN);
-						} else {
-							v.setBackgroundColor(Color.RED);
-						}
-
-						break;
-					}
-					case MotionEvent.ACTION_UP: {
-						v.setBackgroundColor(Color.TRANSPARENT);
-						break;
-					}
-					}
-
-					return true;
-
-				}
-			});
-			temp.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					isCorrect(v);
-				}
-			});
-			im_list.add(temp);
-		}
 		Collections.shuffle(im_list);
-		for (int i = 0; i < 3; i++) {
-			TableRow temp = new TableRow(this);
-			for (int y = 0; y < 3; y++) {
-				temp.addView(im_list.get((y) + (i * 3)));
+
+		TableRow tempT = new TableRow(this);
+
+		tempT.addView(im_list.get(0));
+
+		im_table.addView(tempT);
+		im_table.startAnimation(new AnimationUtils().loadAnimation(this,
+				R.anim.abc_fade_in));
+
+		molecdt = new CountDownTimer(2000, 1000) {
+			public void onTick(long millisUntilFinished) {
+
 			}
-			im_table.addView(temp);
-			im_table.startAnimation(new AnimationUtils().loadAnimation(this,
-					R.anim.abc_fade_in));
-		}
+
+			public void onFinish() {
+
+				stopSound();
+				score -= 1;
+				tvScore.setText("Score : " + score);
+				molecdt.cancel();
+				shuffleBoard();
+				wrongSound.start();
+
+			}
+		}.start();
 	}
 
 	// Check input
 	public boolean isCorrect(View v) {
 		ImageView pressed = (ImageView) v;
-		stopSound();
 		// Correct
-		if (pressed.getId() == sequence.get(pos)) {
-			pos++;
+		stopSound();
+		if (pressed.getId() == rand + 1) {
 			score += 1;
 			tvScore.setText("Score : " + score);
+			molecdt.cancel();
+			shuffleBoard();
 			correctSound.start();
-			if (level == 1) {
-				shuffleBoard();	
-			}
 			// End Game
-			if (pos == 9) {
-				cdt.cancel();
-				end();
-			}
 			return true;
 		} else {
 			// Incorrect
 			score -= 1;
 			tvScore.setText("Score : " + score);
+			molecdt.cancel();
+			shuffleBoard();
 			wrongSound.start();
 			return false;
 		}
@@ -318,8 +276,8 @@ public class Game extends Activity {
 		tvDuration.setText("Duration : " + duration);
 		alertDialogBuilder.setTitle("Result");
 
-		long i = db.resultRec(username, score, level, duration,
-				sequence.toString(), startTime, stopTime);
+		long i = db.resultRec(username, score, level, duration, "", startTime,
+				stopTime);
 
 		if (i != -1) {
 			db.posRec(i, pointing);
@@ -369,8 +327,6 @@ public class Game extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// Put starter here
-						// Shuffle sequence
-						shuffleSequence();
 
 						// Get Current Time
 						calendar = Calendar.getInstance();
@@ -386,9 +342,6 @@ public class Game extends Activity {
 
 						// setScore tv
 						tvScore.setText("Score : " + score);
-
-						// Show Sequence
-						tvSequence.setText(sequence.toString());
 
 						// Show Legends
 						showLegends();
@@ -415,11 +368,47 @@ public class Game extends Activity {
 			temp.setMaxWidth(50);
 			// temp.setBackgroundColor(legends[z]);
 			temp.setImageResource(drawable[z]);
-			temp.setTag(z + 11);
-			temp.setId(z + 11);
+			temp.setTag(z + 1);
+			temp.setId(z + 1);
 			temp.setLayoutParams(lg_params);
+
+			temp.setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN: {
+						stopSound();
+						if (isCorrect(v)) {
+							v.setBackgroundColor(Color.GREEN);
+						} else {
+							v.setBackgroundColor(Color.RED);
+						}
+
+						break;
+					}
+					case MotionEvent.ACTION_UP: {
+						v.setBackgroundColor(Color.TRANSPARENT);
+						break;
+					}
+					}
+
+					return true;
+
+				}
+			});
+
+			temp.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					isCorrect(v);
+				}
+			});
 			colorRow.addView(temp);
 		}
+
 		for (int z = 0; z < 9; z++) {
 			TextView temp = new TextView(this);
 			temp.setTypeface(null, Typeface.BOLD);
@@ -450,7 +439,7 @@ public class Game extends Activity {
 		float distance = 0;
 
 		for (int i = 0; i < im_list.size(); i++) {
-			if (im_list.get(i).getId() == sequence.get(pos)) {
+			if (im_list.get(i).getId() == 1) {
 				targetX = targetLocation[i][0];
 				targetY = targetLocation[i][1];
 
@@ -492,7 +481,7 @@ public class Game extends Activity {
 
 	// Get target position
 	public void getTargetLocation() {
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < im_list.size(); i++) {
 			im_list.get(i).getLocationOnScreen(targetLocation[i]);
 		}
 	}
@@ -502,25 +491,25 @@ public class Game extends Activity {
 	public void pause() {
 
 		im_table.setVisibility(View.INVISIBLE);
-		tvSequence.setVisibility(View.INVISIBLE);
 		lg_table.setVisibility(View.INVISIBLE);
 		cdt.cancel();
+		molecdt.cancel();
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setMessage("GAME IS PAUSE");
 		alertDialog.setButton("Continue",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						im_table.setVisibility(View.VISIBLE);
-						tvSequence.setVisibility(View.VISIBLE);
 						lg_table.setVisibility(View.VISIBLE);
 						startTimer();
+						shuffleBoard();
 					}
 				});
 		alertDialog.setCanceledOnTouchOutside(false);
 		alertDialog.show();
 
 	}
-	
+
 	public void stopSound() {
 		if (correctSound.isPlaying()) {
 			correctSound.stop();

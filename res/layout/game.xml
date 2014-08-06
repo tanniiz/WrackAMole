@@ -14,26 +14,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/tv_sequenceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bt_playPause"
-        android:layout_centerHorizontal="true"
-        android:text="Sequence"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tv_sequence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_sequenceText"
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/tv_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,14 +21,6 @@
         android:layout_below="@+id/tv_time"
         android:text="Score :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TableLayout
-        android:id="@+id/im_table"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_sequence"
-        android:layout_centerHorizontal="true" >
-    </TableLayout>
 
     <TextView
         android:id="@+id/tv_digitSymKey"
@@ -118,5 +90,14 @@
         android:background="@drawable/button"
         android:text="Pause"
         android:textColor="@android:color/white" />
+
+    <TableLayout
+        android:id="@+id/im_table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_score"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp" >
+    </TableLayout>
 
 </RelativeLayout>
