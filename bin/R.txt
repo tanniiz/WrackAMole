@@ -245,16 +245,7 @@ int drawable colouredmolesyellow 0x7f020060
 int drawable gradient 0x7f020061
 int drawable ic_launcher 0x7f020062
 int drawable image 0x7f020063
-int drawable mole1 0x7f020064
-int drawable mole2 0x7f020065
-int drawable mole3 0x7f020066
-int drawable mole4 0x7f020067
-int drawable mole5 0x7f020068
-int drawable mole6 0x7f020069
-int drawable mole7 0x7f02006a
-int drawable mole8 0x7f02006b
-int drawable mole9 0x7f02006c
-int drawable title 0x7f02006d
+int drawable title 0x7f020064
 int id RelativeLayout1 0x7f060051
 int id action_bar 0x7f06001c
 int id action_bar_activity_content 0x7f060015
